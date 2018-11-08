@@ -1,1 +1,16 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+/*Buttons */
+.button-red { 
+	-fx-background-color: #A63446; 
+	-fx-text-fill: #FBFEF9; 
+}
+.button-blue{
+	-fx-background-color: #0C6291; 
+	-fx-text-fill: #FBFEF9; 
+}
+
+/*Text */
+.header-red{
+	-fx-text-fill: #A63446
+}
