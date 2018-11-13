@@ -10,10 +10,13 @@ public class Review {
 		review="";
 		username="";		
 	}
+	
 	public Review(int stars, String review, String username) {
 		this.stars=stars;
 		this.review=review;
 		this.username=username;
 	}
+	
+	
 
 }

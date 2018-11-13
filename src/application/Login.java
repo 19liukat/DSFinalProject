@@ -60,7 +60,7 @@ public class Login {
 				checkUser = txtUserName.getText().toString();
 				checkPw = pf.getText().toString();
 				if (checkUser.equals(user) && checkPw.equals(pw)) {
-					primaryStage.setScene(new RestaurantList(primaryStage).getScene());
+					primaryStage.setScene(new RestaurantListDisplay(primaryStage).getScene());
 				}
 				else{
 					lblMessage.setText("Incorrect username or password");
