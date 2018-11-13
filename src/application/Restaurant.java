@@ -40,15 +40,6 @@ public class Restaurant {
 		itemList = new ArrayIndexedList<Item>();
 		reviewList = new ArrayIndexedList<Review>();
 	}
-	public String getRestaurantName() {
-		return restaurantName;
-	}
-	public String getRestaurantType() {
-		return restaurantType;
-	}
-	public String toString() {
-		return restaurantName;
-	}
 	
 
 }
