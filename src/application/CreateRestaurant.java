@@ -2,6 +2,8 @@ package application;
 
 import com.sun.security.ntlm.Client;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -24,12 +26,13 @@ import javafx.stage.Stage;
 public class CreateRestaurant {
 
 	private static Scene scene;
-	private TableView<Data> table;
+	private final TableView table = new TableView();
 	TableColumn<Item, String> name;
 	TableColumn<Item, String> description;
 	TableColumn<Item, String> type;
 	TableColumn<Item, String> price;
-	
+	private final ObservableList<Item> data = FXCollections.observableArrayList();
+
 	public static Scene getScene() {
 		return scene;
 	}
@@ -76,24 +79,33 @@ public class CreateRestaurant {
 		HBox RadioBox = new HBox(lvlOne, lvlTwo, lvlThree, lvlFour);
 
 		// Table of menu items
-		TableView<Item> itemSettingsTableView = new TableView<Item>();
-		name = new TableColumn<>("Item Name");
-	    name.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+		name = new TableColumn<Item, String>("Item Name");
+		name.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
 
-	    description = new TableColumn<>("Description");
-	    description.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
+		description = new TableColumn<Item, String>("Description");
+		description.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
 
-	    type = new TableColumn<>("Type");
-	    type.setCellValueFactory(new PropertyValueFactory<Item, String>("type"));
-	  
-	    price = new TableColumn<>("Price");
-	    price.setCellValueFactory(new PropertyValueFactory<Item, String>("price"));
+		type = new TableColumn<Item, String>("Type");
+		type.setCellValueFactory(new PropertyValueFactory<Item, String>("type"));
 
-	    //itemSettingsTableView.setItems(clientData);
-	    itemSettingsTableView.getColumns().clear();
-	    itemSettingsTableView.getColumns().addAll(name, description, type, price);
-		
+		price = new TableColumn<Item, String>("Price");
+		price.setCellValueFactory(new PropertyValueFactory<Item, String>("price"));
 
+		// Add columns to table
+		table.getColumns().clear();
+		table.getColumns().addAll(name, description, type, price);
+		table.setEditable(true);
+
+		// A button adds a row immediately starts editing it.
+		Button addAndEdit = new Button("Add and edit");
+		addAndEdit.getStyleClass().add("button-blue");
+		addAndEdit.setOnAction((ActionEvent e) -> {
+			int idx = table.getSelectionModel().getSelectedIndex() + 1;
+			data.add(idx, new Item());
+			table.getSelectionModel().select(idx);
+			table.layout();
+			table.edit(idx, name);
+		});
 
 		// Adding Nodes to GridPane layout
 		gridPane.add(text, 1, 0);
@@ -111,9 +123,10 @@ public class CreateRestaurant {
 		gridPane.add(txtZip, 1, 6);
 		gridPane.add(lblPrice, 0, 7);
 		gridPane.add(RadioBox, 1, 7);
-		//gridPane.add(lblMenuItemsNum, 0, 8);
+		// gridPane.add(lblMenuItemsNum, 0, 8);
 		gridPane.add(lblMenuItems, 0, 8);
-		gridPane.add(itemSettingsTableView, 1, 8);
+		gridPane.add(table, 1, 8);
+		gridPane.add(addAndEdit, 2, 8);
 		gridPane.add(btnCancel, 0, 9);
 		gridPane.add(btnSubmit, 1, 9);
 
@@ -133,21 +146,21 @@ public class CreateRestaurant {
 		});
 
 		sp.setContent(gridPane);
-		scene = new Scene(sp, 500, 500);
+		scene = new Scene(sp, 600, 600);
 
 		// Import stylesheet into the GUI String
 		String css = this.getClass().getResource("application.css").toExternalForm();
 		scene.getStylesheets().add(css);
 	}
-	
-    public void removeSelectedRows() {
 
-        table.getItems().removeAll(table.getSelectionModel().getSelectedItems());
+	public void removeSelectedRows() {
 
-        // table selects by index, so we have to clear the selection or else items with that index would be selected 
-        table.getSelectionModel().clearSelection();
+		table.getItems().removeAll(table.getSelectionModel().getSelectedItems());
 
+		// table selects by index, so we have to clear the selection or else
+		// items with that index would be selected
+		table.getSelectionModel().clearSelection();
 
-    }
+	}
 
 }
