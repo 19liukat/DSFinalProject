@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,19 +29,11 @@ public class Login {
 	}
 
 	public Login(Stage primaryStage) {
-		// Adding BorderPane
-		BorderPane bp = new BorderPane();
-		bp.setPadding(new Insets(10, 50, 50, 50));
-
-		// Adding HBox
-		HBox hb = new HBox();
-		hb.setPadding(new Insets(20, 20, 20, 30));
-
 		// Adding GridPane
 		GridPane gridPane = new GridPane();
 		gridPane.setPadding(new Insets(20, 20, 20, 20));
-		gridPane.setHgap(5);
-		gridPane.setVgap(5);
+		gridPane.setHgap(10);
+		gridPane.setVgap(10);
 
 		// Implementing Nodes for GridPane
 		Label lblUserName = new Label("Username:");
@@ -49,24 +42,16 @@ public class Login {
 		PasswordField pf = new PasswordField();
 		Button btnLogin = new Button("Login");
 		Label lblMessage = new Label();
+		Text text = new Text("RestaurantAdvisor");
 
 		// Adding Nodes to GridPane layout
-		gridPane.add(lblUserName, 0, 0);
-		gridPane.add(txtUserName, 1, 0);
-		gridPane.add(lblPassword, 0, 1);
-		gridPane.add(pf, 1, 1);
-		gridPane.add(btnLogin, 1, 2);
-		gridPane.add(lblMessage, 1, 3);
-
-		// Adding text to HBox
-		Text text = new Text("RestaurantAdvisor");
-		hb.getChildren().add(text);
-
-		// Add ID's to Nodes
-		bp.setId("bp");
-		gridPane.setId("root");
-		btnLogin.setId("btnLogin");
-		text.setId("text");
+		gridPane.add(text, 1, 0);
+		gridPane.add(lblUserName, 0, 1);
+		gridPane.add(txtUserName, 1, 1);
+		gridPane.add(lblPassword, 0, 2);
+		gridPane.add(pf, 1, 2);
+		gridPane.add(btnLogin, 1, 3);
+		gridPane.add(lblMessage, 1, 4);
 
 		// Action for btnLogin and styling
 		btnLogin.getStyleClass().add("button-blue");
@@ -86,12 +71,9 @@ public class Login {
 			}
 		});
 		
-		// Add HBox and GridPane layout to BorderPane Layout
-		bp.setTop(hb);
-		bp.setCenter(gridPane);
-		scene = new Scene(bp, 500, 500);
+		scene = new Scene(gridPane, 500, 500);
+		gridPane.setAlignment(Pos.CENTER);
 		
-
 		// Import stylesheet into the GUI String
 		String css = this.getClass().getResource("application.css").toExternalForm();
 		scene.getStylesheets().add(css);
