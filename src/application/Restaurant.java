@@ -39,6 +39,86 @@ public class Restaurant {
 		itemList = new ArrayIndexedList<Item>();
 		reviewList = new ArrayIndexedList<Review>();
 	}
+
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
+
+	public String getRestaurantType() {
+		return restaurantType;
+	}
+
+	public void setRestaurantType(String restaurantType) {
+		this.restaurantType = restaurantType;
+	}
+
+	public String getStreetAddress() {
+		return streetAddress;
+	}
+
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public int getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(int zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public int getNumItems() {
+		return numItems;
+	}
+
+	public void setNumItems(int numItems) {
+		this.numItems = numItems;
+	}
+
+	public ArrayIndexedList<Item> getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(ArrayIndexedList<Item> itemList) {
+		this.itemList = itemList;
+	}
+
+	public ArrayIndexedList<Review> getReviewList() {
+		return reviewList;
+	}
+
+	public void setReviewList(ArrayIndexedList<Review> reviewList) {
+		this.reviewList = reviewList;
+	}
 	
 
 }
