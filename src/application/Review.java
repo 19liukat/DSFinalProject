@@ -16,6 +16,7 @@ public class Review {
 		this.review=review;
 		this.username=username;
 	}
+
 	public int getStars() {
 		return stars;
 	}
@@ -40,6 +41,4 @@ public class Review {
 		this.username = username;
 	}
 	
-	
-
 }

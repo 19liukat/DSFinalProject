@@ -2,6 +2,7 @@ package application.Restaurants;
 
 import application.Item;
 import application.Restaurant;
+import application.RestaurantArrayList;
 import application.Review;
 import application.Lists.ArrayIndexedList;
 
@@ -14,8 +15,8 @@ public class Restaurant1 {
 	private int zipCode;
 	private String price;
 	private int numItems;
+	private double reviewAvg;
 	private ArrayIndexedList<Item> itemList;
-	private ArrayIndexedList<Review> reviewList;
 
 	//String restaurantName, String restaurantType, String streetAddress, String city, String state, int zipCode, double price, int numItems
 	public Restaurant1() {
@@ -27,8 +28,11 @@ public class Restaurant1 {
 		zipCode=53045;
 		price="$$";
 		itemList = (new Restaurant1ItemList()).getList();
-		reviewList = (new Restaurant1ReviewList()).getList();
+		reviewAvg = (new Restaurant1ReviewList()).getAvg();
 		numItems = itemList.size();
+		Restaurant temp = new Restaurant();
+		RestaurantArrayList tempList = new RestaurantArrayList();
+		tempList.addRestaurant(temp);
 	}
 
 	public String getRestaurantName() {
@@ -103,12 +107,8 @@ public class Restaurant1 {
 		this.itemList = itemList;
 	}
 
-	public ArrayIndexedList<Review> getReviewList() {
-		return reviewList;
-	}
-
-	public void setReviewList(ArrayIndexedList<Review> reviewList) {
-		this.reviewList = reviewList;
+	public double getReviewAvg() {
+		return reviewAvg;
 	}
 
 }

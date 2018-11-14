@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import application.Lists.ArrayIndexedList;
 
 public class RestaurantArrayList {
-	private ArrayList<Restaurant> restaurantList;
+	private static ArrayList<Restaurant> restaurantList;
 	public RestaurantArrayList() {
 		restaurantList=new ArrayList<Restaurant>();
 	}
