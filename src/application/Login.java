@@ -1,5 +1,7 @@
 package application;
 
+import application.User.User;
+import application.User.UserArrayList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,10 +22,9 @@ import javafx.stage.Stage;
 
 public class Login {
 
-	private String user = "r";
-	private String pw = "p";
 	private String checkUser, checkPw;
 	private static Scene scene;
+	private boolean containsUser=false;
 
 	public static Scene getScene() {
 		return scene;
@@ -34,6 +36,9 @@ public class Login {
 		gridPane.setPadding(new Insets(20, 20, 20, 20));
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
+		//instantiate UserArrayList
+		UserArrayList userList = new UserArrayList();
+		userList.addUser(new User("r", "p"));
 
 		// Implementing Nodes for GridPane
 		Label lblUserName = new Label("Username:");
@@ -43,6 +48,14 @@ public class Login {
 		Button btnLogin = new Button("Login");
 		Label lblMessage = new Label();
 		Text text = new Text("RestaurantAdvisor");
+		Hyperlink link = new Hyperlink();
+		link.setText("Don't have an account? Sign up");
+		link.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent e) {
+		    		primaryStage.setScene(new CreateAccount(primaryStage).getScene());
+		    }
+		});
 
 		// Adding Nodes to GridPane layout
 		gridPane.add(text, 1, 0);
@@ -52,14 +65,22 @@ public class Login {
 		gridPane.add(pf, 1, 2);
 		gridPane.add(btnLogin, 1, 3);
 		gridPane.add(lblMessage, 1, 4);
+		gridPane.add(link, 1, 5);
 
 		// Action for btnLogin and styling
 		btnLogin.getStyleClass().add("button-blue");
 		btnLogin.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
+				//traverses userList to see if they match
 				checkUser = txtUserName.getText().toString();
 				checkPw = pf.getText().toString();
-				if (checkUser.equals(user) && checkPw.equals(pw)) {
+				for (int i=0; i<userList.getSize(); i++) {
+					if(userList.getUserList().get(i).equalTo(checkUser, checkPw)) {
+						containsUser=true;
+					}
+				}
+				
+				if (containsUser) {
 					primaryStage.setScene(new RestaurantListDisplay(primaryStage).getScene());
 				}
 				else{
