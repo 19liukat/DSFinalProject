@@ -16,7 +16,12 @@ public class Restaurant1ReviewList {
 		reviewList.add(review1);
 		reviewList.add(review2);
 	}
-	public ArrayIndexedList<Review> getList(){
-		return reviewList;
+	public double getAvg(){
+		double avg = 0;
+		for(int i = 0; i < reviewList.size(); i++){
+			avg += reviewList.get(i).getStars();
+		}
+		avg /= reviewList.size();
+		return avg;
 	}
 }

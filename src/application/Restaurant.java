@@ -15,33 +15,112 @@ public class Restaurant {
 	private int numItems;
 	private double rating;
 	private ArrayIndexedList<Item> itemList;
-	private ArrayIndexedList<Review> reviewList;
-	
+
 	public Restaurant() {
-		restaurantName="FreshFin Poke";
-		restaurantType="Fast Casual";
-		streetAddress="240 North Lord Street";
-		city="Brookfield";
-		state="WI";
-		zipCode=53045;
-		price="$$";
+		restaurantName = "FreshFin Poke";
+		restaurantType = "Fast Casual";
+		streetAddress = "240 North Lord Street";
+		city = "Brookfield";
+		state = "WI";
+		zipCode = 53045;
+		price = "$$";
 		itemList = (new Restaurant1ItemList()).getList();
-		reviewList = (new Restaurant1ReviewList()).getList();
+		rating = (new Restaurant1ReviewList()).getAvg();
 		numItems = itemList.size();
 	}
-	
-	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state, int zipCode, String price, int numItems) {
-		restaurantName="FreshFin Poke";
-		restaurantType="Fast Casual";
-		streetAddress="240 North Lord Street";
-		city="Brookfield";
-		state="WI";
-		zipCode=53045;
-		price="$$";
+
+	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state,
+			int zipCode, String price, int numItems) {
+		restaurantName = "FreshFin Poke";
+		restaurantType = "Fast Casual";
+		streetAddress = "240 North Lord Street";
+		city = "Brookfield";
+		state = "WI";
+		zipCode = 53045;
+		price = "$$";
 		itemList = (new Restaurant1ItemList()).getList();
-		reviewList = (new Restaurant1ReviewList()).getList();
+		rating = (new Restaurant1ReviewList()).getAvg();
 		numItems = itemList.size();
 	}
-	
+
+	public String getRestaurantName() {
+		return restaurantName;
+	}
+
+	public void setRestaurantName(String restaurantName) {
+		this.restaurantName = restaurantName;
+	}
+
+	public String getRestaurantType() {
+		return restaurantType;
+	}
+
+	public void setRestaurantType(String restaurantType) {
+		this.restaurantType = restaurantType;
+	}
+
+	public String getStreetAddress() {
+		return streetAddress;
+	}
+
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public int getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(int zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public int getNumItems() {
+		return numItems;
+	}
+
+	public void setNumItems(int numItems) {
+		this.numItems = numItems;
+	}
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
+	public ArrayIndexedList<Item> getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(ArrayIndexedList<Item> itemList) {
+		this.itemList = itemList;
+	}
 
 }
