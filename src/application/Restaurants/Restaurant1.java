@@ -1,6 +1,7 @@
 package application.Restaurants;
 
 import application.Item;
+import application.Restaurant;
 import application.Review;
 import application.Lists.ArrayIndexedList;
 
@@ -16,6 +17,7 @@ public class Restaurant1 {
 	private ArrayIndexedList<Item> itemList;
 	private ArrayIndexedList<Review> reviewList;
 
+	//String restaurantName, String restaurantType, String streetAddress, String city, String state, int zipCode, double price, int numItems
 	public Restaurant1() {
 		restaurantName="FreshFin Poke";
 		restaurantType="Fast Casual";

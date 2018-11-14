@@ -1,6 +1,8 @@
 package application;
 
 import application.Lists.ArrayIndexedList;
+import application.Restaurants.Restaurant1ItemList;
+import application.Restaurants.Restaurant1ReviewList;
 
 public class Restaurant {
 	private String restaurantName;
@@ -16,29 +18,29 @@ public class Restaurant {
 	private ArrayIndexedList<Review> reviewList;
 	
 	public Restaurant() {
-		restaurantName="chicken";
-		restaurantType="bad";
-		streetAddress="";
-		city="";
-		state="";
-		zipCode=0;
-		price="";
-		numItems=0;
-		itemList= null;
-		reviewList= null;
+		restaurantName="FreshFin Poke";
+		restaurantType="Fast Casual";
+		streetAddress="240 North Lord Street";
+		city="Brookfield";
+		state="WI";
+		zipCode=53045;
+		price="$$";
+		itemList = (new Restaurant1ItemList()).getList();
+		reviewList = (new Restaurant1ReviewList()).getList();
+		numItems = itemList.size();
 	}
 	
-	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state, int zipCode, double price, int numItems) {
-		this.restaurantName="";
-		this.restaurantType="";
-		this.streetAddress="";
-		this.city="";
-		this.state="";
-		this.zipCode=0;
-		this.price="";
-		this.numItems=0;
-		itemList = new ArrayIndexedList<Item>();
-		reviewList = new ArrayIndexedList<Review>();
+	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state, int zipCode, String price, int numItems) {
+		restaurantName="FreshFin Poke";
+		restaurantType="Fast Casual";
+		streetAddress="240 North Lord Street";
+		city="Brookfield";
+		state="WI";
+		zipCode=53045;
+		price="$$";
+		itemList = (new Restaurant1ItemList()).getList();
+		reviewList = (new Restaurant1ReviewList()).getList();
+		numItems = itemList.size();
 	}
 	
 
