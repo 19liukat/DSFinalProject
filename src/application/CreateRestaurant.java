@@ -134,14 +134,14 @@ public class CreateRestaurant {
 		btnSubmit.getStyleClass().add("button-blue");
 		btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				primaryStage.setScene(new RestaurantList(primaryStage).getScene());
+				//primaryStage.setScene(new RestaurantList(primaryStage).getScene());
 			}
 		});
 
 		btnCancel.getStyleClass().add("button-red");
 		btnCancel.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				primaryStage.setScene(new RestaurantList(primaryStage).getScene());
+				//primaryStage.setScene(new RestaurantArrayList(primaryStage).getScene());
 			}
 		});
 
