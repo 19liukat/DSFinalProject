@@ -29,8 +29,7 @@ public class LeaveAReview {
 		return scene;
 	}
 
-	public LeaveAReview(Stage primaryStage, Restaurant tempRestaurant, User currentUser) {
-		ReviewArrayList reviewList = new ReviewArrayList();
+	public LeaveAReview(Stage primaryStage, Restaurant tempRestaurant, User currentUser){
 		ScrollPane sp = new ScrollPane();
 		scene = new Scene(sp, 500, 500);
 		GridPane gridPane = new GridPane();
@@ -63,11 +62,11 @@ public class LeaveAReview {
 		// reviewList
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				int stars = (int) comboBox.getValue();
+				double stars = (double)comboBox.getValue();
 				String review = txtReview.getText().toString();
 				String username = currentUser.getUsername();
 				Review newReview = new Review(stars, review, username);
-				reviewList.addUser(newReview);
+				tempRestaurant.addReview(newReview);
 				txtReview.setText("");
 				lblMessage.setText("Review submitted!");
 			}
