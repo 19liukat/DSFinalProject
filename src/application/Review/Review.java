@@ -1,7 +1,7 @@
 package application.Review;
 
 public class Review {
-	private int stars;
+	private double stars;
 	private String review;
 	private String username;
 	
@@ -11,13 +11,13 @@ public class Review {
 		username="";		
 	}
 	
-	public Review(int stars, String review, String username) {
+	public Review(double stars, String review, String username) {
 		this.stars=stars;
 		this.review=review;
 		this.username=username;
 	}
 
-	public int getStars() {
+	public double getStars() {
 		return stars;
 	}
 
