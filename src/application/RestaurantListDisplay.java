@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
+import application.User.User;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -18,7 +19,7 @@ public class RestaurantListDisplay {
 		return finalScene;
 	}
 
-	public RestaurantListDisplay(Stage primaryStage) {
+	public RestaurantListDisplay(Stage primaryStage, User currentUser) {
 
 		// Adding GridPane
 		GridPane gridPane = new GridPane();
@@ -58,7 +59,7 @@ public class RestaurantListDisplay {
 
 			// Clicking a restaurant changes scene to individual restaurant page
 			vBox.setOnMouseClicked(
-					event -> primaryStage.setScene((new SingleRestaurant(primaryStage, tempRestaurant)).getScene()));
+					event -> primaryStage.setScene((new SingleRestaurant(primaryStage, tempRestaurant, currentUser)).getScene()));
 
 		}
 

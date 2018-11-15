@@ -29,12 +29,12 @@ public class LeaveAReview {
 		return scene;
 	}
 
-	public LeaveAReview(Stage primaryStage, Restaurant tempRestaurant, User currentUser){
+	public LeaveAReview(Stage primaryStage, Restaurant tempRestaurant, User currentUser) {
 		ReviewArrayList reviewList = new ReviewArrayList();
 		ScrollPane sp = new ScrollPane();
 		scene = new Scene(sp, 500, 500);
 		GridPane gridPane = new GridPane();
-		//restaurant text
+		// restaurant text
 		Text name = new Text(tempRestaurant.getRestaurantName());
 		name.getStyleClass().add("restaurant-title");
 		String type = tempRestaurant.getRestaurantType();
@@ -49,27 +49,21 @@ public class LeaveAReview {
 		vBox.setPadding(new Insets(10, 10, 10, 10));
 		vBox.getChildren().addAll(name, textDescription);
 		gridPane.add(vBox, 0, 0);
-		//Leave a Review
+		// Leave a Review
 		Text text = new Text("Leave a Review");
 		TextField txtReview = new TextField();
 		Label lblstars = new Label();
-		//drop down of star options
-		ObservableList<Integer> options = 
-			    FXCollections.observableArrayList(
-			        1,
-			        2,
-			        3,
-			        4,
-			        5
-			    );
-			final ComboBox comboBox = new ComboBox(options);
+		// drop down of star options
+		ObservableList<Integer> options = FXCollections.observableArrayList(1, 2, 3, 4, 5);
+		final ComboBox comboBox = new ComboBox(options);
 		Label lblMessage = new Label();
-		//submit review button
+		// submit review button
 		Button submit = new Button();
-		//when button is pressed, creates new Review object and adds it to reviewList
+		// when button is pressed, creates new Review object and adds it to
+		// reviewList
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				int stars = (int)comboBox.getValue();
+				int stars = (int) comboBox.getValue();
 				String review = txtReview.getText().toString();
 				String username = currentUser.getUsername();
 				Review newReview = new Review(stars, review, username);
@@ -78,7 +72,7 @@ public class LeaveAReview {
 				lblMessage.setText("Review submitted!");
 			}
 		});
-		
+
 		gridPane.add(text, 0, 1);
 		gridPane.add(txtReview, 0, 2);
 		gridPane.add(lblstars, 0, 3);
@@ -88,11 +82,9 @@ public class LeaveAReview {
 		gridPane.setAlignment(Pos.CENTER);
 		sp.setContent(gridPane);
 		scene = new Scene(sp, 500, 500);
-		//padding
+		// padding
 		gridPane.setPadding(new Insets(10, 10, 10, 10));
-		
-	
-		
+
 	}
 
 }

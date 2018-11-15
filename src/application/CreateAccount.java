@@ -51,7 +51,7 @@ public class CreateAccount {
 				if (checkPw1.equals(checkPw2)) {
 					User newUser = new User(txtUserName.getText().toString(), checkPw1);
 					userList.addUser(newUser);
-					primaryStage.setScene(new RestaurantListDisplay(primaryStage).getScene());
+					primaryStage.setScene(new RestaurantListDisplay(primaryStage, newUser).getScene());
 				}
 				else{
 					lblMessage.setText("Passwords don't match");

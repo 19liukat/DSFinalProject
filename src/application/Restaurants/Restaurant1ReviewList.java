@@ -2,7 +2,7 @@ package application.Restaurants;
 
 import java.util.ArrayList;
 
-import application.Review;
+import application.Review.Review;
 
 public class Restaurant1ReviewList {
 

@@ -25,7 +25,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
-		Scene scene = new RestaurantListDisplay(primaryStage).getScene();
+		
+		Scene scene = new Login(primaryStage).getScene();
 
 		primaryStage.setTitle("RestaurantAdvisor");
 		primaryStage.setScene(scene);

@@ -24,7 +24,8 @@ public class Login {
 
 	private String checkUser, checkPw;
 	private static Scene scene;
-	private boolean containsUser=false;
+	private boolean containsUser = false;
+	private User currentUser;
 
 	public static Scene getScene() {
 		return scene;
@@ -36,7 +37,8 @@ public class Login {
 		gridPane.setPadding(new Insets(20, 20, 20, 20));
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
-		//instantiate UserArrayList
+
+		// instantiate UserArrayList
 		UserArrayList userList = new UserArrayList();
 		userList.addUser(new User("r", "p"));
 
@@ -51,10 +53,10 @@ public class Login {
 		Hyperlink link = new Hyperlink();
 		link.setText("Don't have an account? Sign up");
 		link.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent e) {
-		    		primaryStage.setScene(new CreateAccount(primaryStage).getScene());
-		    }
+			@Override
+			public void handle(ActionEvent e) {
+				primaryStage.setScene(new CreateAccount(primaryStage).getScene());
+			}
 		});
 
 		// Adding Nodes to GridPane layout
@@ -71,19 +73,19 @@ public class Login {
 		btnLogin.getStyleClass().add("button-blue");
 		btnLogin.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				//traverses userList to see if they match
+				// traverses userList to see if they match
 				checkUser = txtUserName.getText().toString();
 				checkPw = pf.getText().toString();
-				for (int i=0; i<userList.getSize(); i++) {
-					if(userList.getUserList().get(i).equalTo(checkUser, checkPw)) {
-						containsUser=true;
+				for (int i = 0; i < userList.getSize(); i++) {
+					if (userList.getUserList().get(i).equalTo(checkUser, checkPw)) {
+						containsUser = true;
+						currentUser = userList.getUserList().get(i);
 					}
 				}
-				
+
 				if (containsUser) {
-					primaryStage.setScene(new RestaurantListDisplay(primaryStage).getScene());
-				}
-				else{
+					primaryStage.setScene(new RestaurantListDisplay(primaryStage, currentUser).getScene());
+				} else {
 					lblMessage.setText("Incorrect username or password");
 					lblMessage.setTextFill(Color.RED);
 				}
@@ -91,11 +93,11 @@ public class Login {
 				pf.setText("");
 			}
 		});
-		
+
 		scene = new Scene(gridPane, 500, 500);
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.getStyleClass().add("background-white");
-		
+
 		// Import stylesheet into the GUI String
 		String css = this.getClass().getResource("application.css").toExternalForm();
 		scene.getStylesheets().add(css);
