@@ -1,4 +1,4 @@
-package application;
+package application.Review;
 
 public class Review {
 	private int stars;

@@ -1,8 +1,8 @@
 package application.Restaurants;
 
 import application.Item;
-import application.Review;
 import application.Lists.ArrayIndexedList;
+import application.Review.Review;
 
 public class Restaurant1ReviewList {
 
