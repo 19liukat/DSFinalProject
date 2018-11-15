@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import application.User.User;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -62,7 +63,11 @@ public class RestaurantListDisplay {
 					event -> primaryStage.setScene((new SingleRestaurant(primaryStage, tempRestaurant, currentUser)).getScene()));
 
 		}
-
+		//testing logout
+		Button logOut = new Button("Log Out");
+		logOut.setOnMouseClicked(
+				event -> primaryStage.setScene(Login.getScene()));
+		gridPane.add(logOut, col, row++);
 		ScrollPane sp = new ScrollPane();
 		sp.setContent(gridPane);
 

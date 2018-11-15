@@ -133,5 +133,10 @@ public class Restaurant {
 	public void setItemList(ArrayList<Item> itemList) {
 		this.itemList = itemList;
 	}
+	
+	public ArrayList<Review> getReviewList(){
+		return reviewList;
+	}
+
 
 }

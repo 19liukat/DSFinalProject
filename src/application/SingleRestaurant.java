@@ -74,14 +74,19 @@ public class SingleRestaurant {
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
 				if (new_toggle == readReviews) {
-					/*
-					 * ArrayList<Review> reviewList = new ArrayList<Review>();
-					 * reviewList = tempRestaurant.getReviewList(); for(int i =
-					 * 0; i < reviewList.size(); i++){ Text username = new
-					 * Text(reviewList.get(i).getUsername()); Text reviewText =
-					 * new Text(reviewList.get(i).getReview()); Text stars = new
-					 * Text(String.valueOf(reviewList.get(i).getStars())); }
-					 */
+					Text title = new Text("Customer Reviews");
+					int row=0;
+					int col=0;
+					int reviewListSize = tempRestaurant.getReviewList().size();
+					for (int i=0; i<reviewListSize; i++) {
+						Review currentReview = tempRestaurant.getReviewList().get(i);
+						VBox vBox = new VBox();
+						vBox.setPadding(new Insets(10, 10, 10, 10));
+						Text info = new Text("User: " + currentReview.getUsername() + " Stars (out of 5): " + currentReview.getStars());
+						Text review = new Text(currentReview.getReview());
+						vBox.getChildren().addAll(info, review);
+						gridPane.add(vBox, col, row++);
+					}
 				} else if (new_toggle == leaveReview) {
 					VBox tempVBox = new VBox();
 					Text text = new Text("Leave a Review");
@@ -109,7 +114,7 @@ public class SingleRestaurant {
 							String review = txtReview.getText().toString();
 							String username = currentUser.getUsername();
 							Review newReview = new Review(stars, review, username);
-							Restaurant.addReview(newReview);
+							tempRestaurant.addReview(newReview);
 							txtReview.setText("");
 							lblMessage.setText("Review submitted!");
 							gridPane.add(lblMessage, 0, 3);
