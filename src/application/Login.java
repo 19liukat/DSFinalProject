@@ -64,8 +64,8 @@ public class Login {
 		gridPane.add(lblPassword, 0, 2);
 		gridPane.add(pf, 1, 2);
 		gridPane.add(btnLogin, 1, 3);
-		gridPane.add(lblMessage, 1, 4);
-		gridPane.add(link, 1, 5);
+		gridPane.add(link, 1, 4);
+		gridPane.add(lblMessage, 1, 5);
 
 		// Action for btnLogin and styling
 		btnLogin.getStyleClass().add("button-blue");
@@ -94,6 +94,7 @@ public class Login {
 		
 		scene = new Scene(gridPane, 500, 500);
 		gridPane.setAlignment(Pos.CENTER);
+		gridPane.getStyleClass().add("background-white");
 		
 		// Import stylesheet into the GUI String
 		String css = this.getClass().getResource("application.css").toExternalForm();

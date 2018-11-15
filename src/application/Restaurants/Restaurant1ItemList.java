@@ -1,14 +1,16 @@
 package application.Restaurants;
 
+import java.util.ArrayList;
+
 import application.Item;
 import application.Lists.ArrayIndexedList;
 
 public class Restaurant1ItemList {
 
-	ArrayIndexedList<Item> itemList;
+	ArrayList<Item> itemList;
 	//String name, String description, String type, double price
 	public Restaurant1ItemList(){
-		itemList = new ArrayIndexedList<Item>();
+		itemList = new ArrayList<Item>();
 		Item item1 = new Item("Mango Tango", "salmon*, mango, edamame, avocado, cilantro, thai chili ginger, sweet shoyu, crispy onion, tobiko", "Entree", 10.95);
 		Item item2 = new Item("Spicy Tuna", "ahi tuna*, edamame, jalapeno, cucumber, sriracha aioli, sweet shoyu, crispy onion, tobiko", "Entree", 10.95);
 		Item item3 = new Item("Curry Coconut Shrimp", "shrimp, mango, cilantro, carrots, toasted coconut, curry aioli, crispy onion", "Entree", 9.95);
@@ -24,7 +26,7 @@ public class Restaurant1ItemList {
 		itemList.add(item6);	
 		itemList.add(item7);	
 	}
-	public ArrayIndexedList<Item> getList(){
+	public ArrayList<Item> getList(){
 		return itemList;
 	}
 }

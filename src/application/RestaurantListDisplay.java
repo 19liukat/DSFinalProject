@@ -24,6 +24,8 @@ public class RestaurantListDisplay {
 		GridPane gridPane = new GridPane();
 		RestaurantArrayList restaurantList = new RestaurantArrayList();
 		Restaurant test = new Restaurant();
+
+		// Adding restaurants to list to display
 		restaurantList.addRestaurant(test);
 		restaurantList.addRestaurant(test);
 		ArrayList<Restaurant> rList = restaurantList.getList();
@@ -33,6 +35,8 @@ public class RestaurantListDisplay {
 		int col = 0;
 		int arraySize = rList.size();
 		for (int i = 0; i < arraySize; i++) {
+			
+			// Generate list of Restaurant objects and display it
 			final Restaurant tempRestaurant = rList.get(index);
 			Text name = new Text(tempRestaurant.getRestaurantName());
 			name.getStyleClass().add("restaurant-title");
@@ -44,22 +48,18 @@ public class RestaurantListDisplay {
 			String stringDescription = type + " | " + rating + " | " + price + " | " + address;
 			Text textDescription = new Text(stringDescription);
 			textDescription.getStyleClass().add("restaurant-description");
+			
+			// Adding each Restaurant + description to separate VBox
 			VBox vBox = new VBox();
 			vBox.setPadding(new Insets(10, 10, 10, 10));
 			vBox.getChildren().addAll(name, textDescription);
 			gridPane.add(vBox, col, row++);
 			index++;
 
-			vBox.setOnMouseClicked(event -> primaryStage.setScene((new SingleRestaurant(primaryStage, tempRestaurant)).getScene()));
+			// Clicking a restaurant changes scene to individual restaurant page
+			vBox.setOnMouseClicked(
+					event -> primaryStage.setScene((new SingleRestaurant(primaryStage, tempRestaurant)).getScene()));
 
-			
-			/*
-			 * vBox.setOnMousePressed(new EventHandler<MouseEvent>() { public
-			 * void handle(MouseEvent mouseEvent) { SingleRestaurant
-			 * restaurantPage = new SingleRestaurant(primaryStage,
-			 * tempRestaurant); primaryStage.setScene(restaurantPage.getScene())
-			 * } });
-			 */
 		}
 
 		ScrollPane sp = new ScrollPane();
@@ -72,6 +72,5 @@ public class RestaurantListDisplay {
 		scene.getStylesheets().add(css);
 		finalScene = scene;
 	}
-	
-	
+
 }

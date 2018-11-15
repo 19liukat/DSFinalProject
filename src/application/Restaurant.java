@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import application.Lists.ArrayIndexedList;
 import application.Restaurants.Restaurant1ItemList;
 import application.Restaurants.Restaurant1ReviewList;
@@ -14,7 +16,7 @@ public class Restaurant {
 	private String price;
 	private int numItems;
 	private double rating;
-	private ArrayIndexedList<Item> itemList;
+	private ArrayList<Item> itemList;
 
 	public Restaurant() {
 		restaurantName = "FreshFin Poke";
@@ -115,11 +117,11 @@ public class Restaurant {
 		this.rating = rating;
 	}
 
-	public ArrayIndexedList<Item> getItemList() {
+	public ArrayList<Item> getItemList() {
 		return itemList;
 	}
 
-	public void setItemList(ArrayIndexedList<Item> itemList) {
+	public void setItemList(ArrayList<Item> itemList) {
 		this.itemList = itemList;
 	}
 
