@@ -6,6 +6,7 @@ import application.Item;
 import application.Restaurant;
 import application.RestaurantArrayList;
 import application.Lists.ArrayIndexedList;
+import application.Review.Review;
 
 public class Restaurant1 {
 	private String restaurantName;
