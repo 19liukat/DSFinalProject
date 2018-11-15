@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import application.Lists.ArrayIndexedList;
 import application.Restaurants.Restaurant1ItemList;
 import application.Restaurants.Restaurant1ReviewList;
+import application.Review.Review;
 
 public class Restaurant {
 	private String restaurantName;
@@ -17,6 +18,7 @@ public class Restaurant {
 	private int numItems;
 	private double rating;
 	private ArrayList<Item> itemList;
+	private ArrayList<Review> reviewList;
 
 	public Restaurant() {
 		restaurantName = "FreshFin Poke";
@@ -26,8 +28,9 @@ public class Restaurant {
 		state = "WI";
 		zipCode = 53045;
 		price = "$$";
-		itemList = (new Restaurant1ItemList()).getList();
-		rating = (new Restaurant1ReviewList()).getAvg();
+		itemList = new ArrayList<Item>();
+		reviewList = new ArrayList<Review>();
+		rating = 0;
 		numItems = itemList.size();
 	}
 
@@ -43,6 +46,12 @@ public class Restaurant {
 		itemList = (new Restaurant1ItemList()).getList();
 		rating = (new Restaurant1ReviewList()).getAvg();
 		numItems = itemList.size();
+	}
+	public void addReview(Review toAdd) {
+		reviewList.add(toAdd);
+	}
+	public void addItem(Item toAdd) {
+		itemList.add(toAdd);
 	}
 
 	public String getRestaurantName() {
