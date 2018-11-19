@@ -1,8 +1,15 @@
 package application;
 
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
+
 import application.User.User;
 import application.User.UserArrayList;
-import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,9 +20,9 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -31,12 +38,22 @@ public class Login {
 		return scene;
 	}
 
-	public Login(Stage primaryStage) {
+	public Login(Stage primaryStage) throws IOException{
 		// Adding GridPane
 		GridPane gridPane = new GridPane();
 		gridPane.setPadding(new Insets(20, 20, 20, 20));
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
+
+		// Adding image
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream input = classLoader.getResourceAsStream("icon.jpg");
+		BufferedImage bufferedImage = ImageIO.read(input);
+		Image logoImage = SwingFXUtils.toFXImage(bufferedImage,null);
+		ImageView logo = new ImageView(logoImage);
+		logo.setFitHeight(30);
+		logo.setFitWidth(50);
+		gridPane.add(logo, 1, 0);
 
 		// instantiate UserArrayList
 		UserArrayList userList = new UserArrayList();
@@ -60,14 +77,14 @@ public class Login {
 		});
 
 		// Adding Nodes to GridPane layout
-		gridPane.add(text, 1, 0);
-		gridPane.add(lblUserName, 0, 1);
-		gridPane.add(txtUserName, 1, 1);
-		gridPane.add(lblPassword, 0, 2);
-		gridPane.add(pf, 1, 2);
-		gridPane.add(btnLogin, 1, 3);
-		gridPane.add(link, 1, 4);
-		gridPane.add(lblMessage, 1, 5);
+		gridPane.add(text, 1, 1);
+		gridPane.add(lblUserName, 0, 2);
+		gridPane.add(txtUserName, 1, 2);
+		gridPane.add(lblPassword, 0, 3);
+		gridPane.add(pf, 1, 3);
+		gridPane.add(btnLogin, 1, 4);
+		gridPane.add(link, 1, 5);
+		gridPane.add(lblMessage, 1, 6);
 
 		// Action for btnLogin and styling
 		btnLogin.getStyleClass().add("button-blue");

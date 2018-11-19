@@ -27,3 +27,8 @@
 .restaurant-description{
 	-fx-font-size: 12px;
 }
+
+/*Toggle Group */
+.toggle-button:selected{
+	
+}
