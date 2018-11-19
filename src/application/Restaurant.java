@@ -28,7 +28,7 @@ public class Restaurant {
 		state = "WI";
 		zipCode = 53045;
 		price = "$$";
-		itemList = new ArrayList<Item>();
+		itemList = new Restaurant1ItemList().getList();
 		reviewList = new ArrayList<Review>();
 		rating = 0;
 		numItems = itemList.size();
