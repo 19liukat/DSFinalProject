@@ -20,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -44,12 +45,22 @@ public class SingleRestaurant {
 		restaurantName.getStyleClass().add("restaurant-title");
 		gridPane.add(restaurantName, 0, 0);
 
+		// Back button 
+		VBox backVBox = new VBox();
+		Button back = new Button("Back");
+		back.getStyleClass().add("button-red");
+		backVBox.getChildren().add(back);
+		gridPane.add(backVBox, 1, 0);
+		back.setOnMouseClicked(
+				event -> primaryStage.setScene(RestaurantListDisplay.getScene()));
+		gridPane.getColumnConstraints().add(new ColumnConstraints(420));
+		
 		// Adding Toggle Bar
 		ToggleGroup toggleGroup = new ToggleGroup();
 
 		ToggleButton readReviews = new ToggleButton("Reviews");
 		readReviews.setToggleGroup(toggleGroup);
-		readReviews.setSelected(true);
+		readReviews.setSelected(false);
 		ToggleButton leaveReview = new ToggleButton("Leave a Review");
 		leaveReview.setToggleGroup(toggleGroup);
 		ToggleButton menu = new ToggleButton("Menu");
@@ -90,6 +101,7 @@ public class SingleRestaurant {
 						Text info = new Text("User: " + currentReview.getUsername() + " | Stars: "
 								+ currentReview.getStars());
 						Text review = new Text(currentReview.getReview());
+						review.setWrappingWidth(400);
 						Text divider = new Text("---");
 						tempVBox.getChildren().addAll(info, review, divider);
 					}
@@ -103,7 +115,8 @@ public class SingleRestaurant {
 					Text text = new Text("Leave a Review");
 					text.getStyleClass().add("secondary-header");
 					TextArea txtReview = new TextArea();
-					Label lblStars = new Label("Stars (out of 5)");
+					txtReview.setWrapText(true);
+					Label lblStars = new Label("Stars: ");
 
 					// Drop down of star options
 					HBox stars = new HBox();
@@ -131,7 +144,6 @@ public class SingleRestaurant {
 							txtReview.setText("");
 							lblMessage.setText("Review submitted!");
 							tempVBox.getChildren().add(lblMessage);
-
 						}
 					});
 

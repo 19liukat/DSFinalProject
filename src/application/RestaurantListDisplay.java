@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -26,6 +27,7 @@ public class RestaurantListDisplay {
 		GridPane gridPane = new GridPane();
 		RestaurantArrayList restaurantList = new RestaurantArrayList();
 		Restaurant test = new Restaurant();
+		gridPane.setPadding(new Insets(10, 10, 10, 10));
 
 		// Adding restaurants to list to display
 		restaurantList.addRestaurant(test);
@@ -37,7 +39,7 @@ public class RestaurantListDisplay {
 		int col = 0;
 		int arraySize = rList.size();
 		for (int i = 0; i < arraySize; i++) {
-			
+
 			// Generate list of Restaurant objects and display it
 			final Restaurant tempRestaurant = rList.get(index);
 			Text name = new Text(tempRestaurant.getRestaurantName());
@@ -50,7 +52,7 @@ public class RestaurantListDisplay {
 			String stringDescription = type + " | " + rating + " | " + price + " | " + address;
 			Text textDescription = new Text(stringDescription);
 			textDescription.getStyleClass().add("restaurant-description");
-			
+
 			// Adding each Restaurant + description to separate VBox
 			VBox vBox = new VBox();
 			vBox.setPadding(new Insets(10, 10, 10, 10));
@@ -59,15 +61,20 @@ public class RestaurantListDisplay {
 			index++;
 
 			// Clicking a restaurant changes scene to individual restaurant page
-			vBox.setOnMouseClicked(
-					event -> primaryStage.setScene((new SingleRestaurant(primaryStage, tempRestaurant, currentUser)).getScene()));
+			vBox.setOnMouseClicked(event -> primaryStage
+					.setScene((new SingleRestaurant(primaryStage, tempRestaurant, currentUser)).getScene()));
 
 		}
-		//testing logout
+		// Logout button
+		VBox logoutVBox = new VBox();
+		logoutVBox.setPadding(new Insets(10, 10, 10, 10));
 		Button logOut = new Button("Log Out");
-		logOut.setOnMouseClicked(
-				event -> primaryStage.setScene(Login.getScene()));
-		gridPane.add(logOut, col, row++);
+		logOut.getStyleClass().add("button-red");
+		logoutVBox.getChildren().add(logOut);
+		logOut.setOnMouseClicked(event -> primaryStage.setScene(Login.getScene()));
+		gridPane.add(logoutVBox, col, row++);
+		
+		// Final scene scrollpane
 		ScrollPane sp = new ScrollPane();
 		sp.setContent(gridPane);
 

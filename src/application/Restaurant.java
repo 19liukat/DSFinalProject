@@ -28,9 +28,8 @@ public class Restaurant {
 		state = "WI";
 		zipCode = 53045;
 		price = "$$";
-		itemList = new ArrayList<Item>();
+		itemList = (new Restaurant1ItemList()).getList();
 		reviewList = new ArrayList<Review>();
-		rating = 0;
 		numItems = itemList.size();
 	}
 
@@ -47,9 +46,11 @@ public class Restaurant {
 		rating = (new Restaurant1ReviewList()).getAvg();
 		numItems = itemList.size();
 	}
+
 	public void addReview(Review toAdd) {
 		reviewList.add(toAdd);
 	}
+
 	public void addItem(Item toAdd) {
 		itemList.add(toAdd);
 	}
@@ -119,6 +120,15 @@ public class Restaurant {
 	}
 
 	public double getRating() {
+		if (reviewList.size() == 0) {
+			rating = 0.0;
+		} else {
+			double sum = 0;
+			for (int i = 0; i < reviewList.size(); i++) {
+				sum += reviewList.get(i).getStars();
+			}
+			rating = sum / reviewList.size();
+		}
 		return rating;
 	}
 
@@ -133,10 +143,9 @@ public class Restaurant {
 	public void setItemList(ArrayList<Item> itemList) {
 		this.itemList = itemList;
 	}
-	
-	public ArrayList<Review> getReviewList(){
+
+	public ArrayList<Review> getReviewList() {
 		return reviewList;
 	}
-
 
 }
