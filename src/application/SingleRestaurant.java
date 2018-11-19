@@ -17,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -81,7 +82,7 @@ public class SingleRestaurant {
 					tempVBox.getChildren().clear();
 					gridPane.getChildren().remove(tempVBox);
 					gridPane.getChildren().remove(menuGridPane);
-					
+
 					Text title = new Text("Customer Reviews");
 					title.getStyleClass().add("secondary-header");
 					tempVBox.getChildren().add(title);
@@ -89,8 +90,8 @@ public class SingleRestaurant {
 					for (int i = 0; i < reviewListSize; i++) {
 						Review currentReview = tempRestaurant.getReviewList().get(i);
 						tempVBox.setPadding(new Insets(10, 10, 10, 10));
-						Text info = new Text("User: " + currentReview.getUsername() + " | Stars: "
-								+ currentReview.getStars());
+						Text info = new Text(
+								"User: " + currentReview.getUsername() + " | Stars: " + currentReview.getStars());
 						Text review = new Text(currentReview.getReview());
 						Text divider = new Text("---");
 						tempVBox.getChildren().addAll(info, review, divider);
@@ -100,7 +101,7 @@ public class SingleRestaurant {
 					gridPane.getChildren().remove(tempVBox);
 					gridPane.getChildren().remove(menuGridPane);
 					tempVBox.getChildren().clear();
-					
+
 					tempVBox.setSpacing(10);
 					Text text = new Text("Leave a Review");
 					text.getStyleClass().add("secondary-header");
@@ -152,7 +153,11 @@ public class SingleRestaurant {
 					ColumnConstraints ColCons = new ColumnConstraints();
 					ColCons.setMaxWidth(300.0);
 					menuGridPane.getColumnConstraints().add(0, ColCons);
-					for (int i=0; i<numItems; i++) {
+
+					// Adding textfields for placing an order
+					ArrayList<Integer> quantities = new ArrayList<Integer>();
+					ArrayList<TextField> textFieldList = new ArrayList<TextField>();
+					for (int i = 0; i < numItems; i++) {
 						Item currentItem = tempRestaurant.getItemList().get(i);
 						String itemName = currentItem.getName();
 						double itemPrice = currentItem.getPrice();
@@ -160,13 +165,45 @@ public class SingleRestaurant {
 						Text nameTxt = new Text(itemName + " " + itemPrice);
 						Text descriptionTxt = new Text(itemDescription);
 						descriptionTxt.setWrappingWidth(250.0);
+						TextField itemQuantity = new TextField();
+						textFieldList.add(itemQuantity);
+
+						// Code from Internet
+						itemQuantity.textProperty().addListener(new ChangeListener<String>() {
+							@Override
+							public void changed(ObservableValue<? extends String> observable, String oldValue,
+									String newValue) {
+								if (!newValue.matches("\\d*")) {
+									itemQuantity.setText(newValue.replaceAll("[^\\d]", ""));
+								}
+							}
+						});
+
 						VBox vBox = new VBox();
 						vBox.setPadding(new Insets(10, 10, 10, 10));
 						vBox.getChildren().addAll(nameTxt, descriptionTxt);
-						menuGridPane.add(vBox, col, row++);
+						menuGridPane.add(vBox, col, row);
+
+						menuGridPane.add(itemQuantity, col + 1, row++);
 					}
+
+					Button submitBtn = new Button("Place your order");
+					submitBtn.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent e) {
+							for (int i = 0; i < quantities.size(); i++) {
+								if (textFieldList.get(i).getText().toString() == "") {
+									quantities.set(i, 0);
+								} else {
+									quantities.set(i, Integer.valueOf(textFieldList.get(i).getText().toString()));
+								}
+							}
+							primaryStage.setScene(new OrderPlaced(primaryStage, quantities, tempRestaurant).getScene());
+						}
+					});
 					menuGridPane.add(menuLbl, 0, 0);
 					menuGridPane.add(quantLbl, 1, 0);
+					menuGridPane.add(submitBtn, 0, row);
 					gridPane.add(menuGridPane, 0, 2);
 				}
 
