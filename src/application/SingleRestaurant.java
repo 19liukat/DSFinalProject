@@ -74,8 +74,9 @@ public class SingleRestaurant {
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
 				if (new_toggle == readReviews) {
+					GridPane tempGridPane = new GridPane();
 					Text title = new Text("Customer Reviews");
-					int row=0;
+					int row=1;
 					int col=0;
 					int reviewListSize = tempRestaurant.getReviewList().size();
 					for (int i=0; i<reviewListSize; i++) {
@@ -85,8 +86,10 @@ public class SingleRestaurant {
 						Text info = new Text("User: " + currentReview.getUsername() + " Stars (out of 5): " + currentReview.getStars());
 						Text review = new Text(currentReview.getReview());
 						vBox.getChildren().addAll(info, review);
-						gridPane.add(vBox, col, row++);
+						tempGridPane.add(vBox, col, row++);
 					}
+					tempGridPane.add(title, 0, 0);
+					gridPane.add(tempGridPane, 0, 2);
 				} else if (new_toggle == leaveReview) {
 					VBox tempVBox = new VBox();
 					Text text = new Text("Leave a Review");
@@ -122,6 +125,28 @@ public class SingleRestaurant {
 						}
 					});
 					
+				}
+				else if(new_toggle == menu) {
+					GridPane menuGridPane = new GridPane();
+					Label menuLbl = new Label("Items");
+					Label quantLbl = new Label("Quantity");
+					int numItems = tempRestaurant.getNumItems();
+					int col = 0;
+					int row = 1;
+					for (int i=0; i<numItems; i++) {
+						Item currentItem = tempRestaurant.getItemList().get(i);
+						String itemName = currentItem.getName();
+						double itemPrice = currentItem.getPrice();
+						String itemDescription = currentItem.getDescription();
+						Text nameTxt = new Text(itemName + " " + itemPrice);
+						Text descriptionTxt = new Text(itemDescription);
+						VBox vBox = new VBox();
+						vBox.setPadding(new Insets(10, 10, 10, 10));
+						vBox.getChildren().addAll(nameTxt, descriptionTxt);
+						menuGridPane.add(vBox, col, row++);					
+					}
+					menuGridPane.add(menuLbl, 0, 0);
+					menuGridPane.add(quantLbl, 2, 0);
 				}
 
 			}
