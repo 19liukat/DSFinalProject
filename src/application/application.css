@@ -21,6 +21,9 @@
 .restaurant-title{
 	-fx-font-size: 18px;
 }
+.secondary-header{
+	-fx-font-size: 15px;
+}
 .restaurant-description{
 	-fx-font-size: 12px;
 }

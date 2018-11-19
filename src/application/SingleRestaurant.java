@@ -16,7 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -73,46 +73,56 @@ public class SingleRestaurant {
 		// readReviews.setUserData();
 		// leaveReview.setUserData();
 		// menu.setUserData();
+		VBox tempVBox = new VBox(5);
+		GridPane menuGridPane = new GridPane();
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
 				if (new_toggle == readReviews) {
-					GridPane tempGridPane = new GridPane();
-					Text title = new Text("Customer Reviews");
-					int row=1;
-					int col=0;
-					int reviewListSize = tempRestaurant.getReviewList().size();
-					for (int i=0; i<reviewListSize; i++) {
-						Review currentReview = tempRestaurant.getReviewList().get(i);
-						VBox vBox = new VBox();
-						vBox.setPadding(new Insets(10, 10, 10, 10));
-						Text info = new Text("User: " + currentReview.getUsername() + " Stars (out of 5): " + currentReview.getStars());
-						Text review = new Text(currentReview.getReview());
-						vBox.getChildren().addAll(info, review);
-						tempGridPane.add(vBox, col, row++);
-					}
-					tempGridPane.add(title, 0, 0);
-					gridPane.add(tempGridPane, 0, 2);
-				} else if (new_toggle == leaveReview) {
-					VBox tempVBox = new VBox();
-					Text text = new Text("Leave a Review");
-					TextField txtReview = new TextField();
-					Label lblStars = new Label("Stars (out of 5)");
+					tempVBox.getChildren().clear();
+					gridPane.getChildren().remove(tempVBox);
+					gridPane.getChildren().remove(menuGridPane);
 					
+					Text title = new Text("Customer Reviews");
+					title.getStyleClass().add("secondary-header");
+					tempVBox.getChildren().add(title);
+					int reviewListSize = tempRestaurant.getReviewList().size();
+					for (int i = 0; i < reviewListSize; i++) {
+						Review currentReview = tempRestaurant.getReviewList().get(i);
+						tempVBox.setPadding(new Insets(10, 10, 10, 10));
+						Text info = new Text("User: " + currentReview.getUsername() + " | Stars: "
+								+ currentReview.getStars());
+						Text review = new Text(currentReview.getReview());
+						Text divider = new Text("---");
+						tempVBox.getChildren().addAll(info, review, divider);
+					}
+					gridPane.add(tempVBox, 0, 2);
+				} else if (new_toggle == leaveReview) {
+					gridPane.getChildren().remove(tempVBox);
+					gridPane.getChildren().remove(menuGridPane);
+					tempVBox.getChildren().clear();
+					
+					tempVBox.setSpacing(10);
+					Text text = new Text("Leave a Review");
+					text.getStyleClass().add("secondary-header");
+					TextArea txtReview = new TextArea();
+					Label lblStars = new Label("Stars (out of 5)");
+
 					// Drop down of star options
 					HBox stars = new HBox();
 					ObservableList<Integer> options = FXCollections.observableArrayList(1, 2, 3, 4, 5);
 					final ComboBox comboBox = new ComboBox(options);
 					stars.getChildren().setAll(lblStars, comboBox);
 					Label lblMessage = new Label();
-					
+
 					// Submit review button
 					Button submit = new Button("Submit");
 
 					// Adding nodes to VBox and GridPane
 					tempVBox.getChildren().addAll(text, txtReview, stars, submit);
 					gridPane.add(tempVBox, 0, 2);
-					
-					// When button is pressed, creates new Review object and adds it to reviewList
+
+					// When button is pressed, creates new Review object and
+					// adds it to reviewList
 					submit.setOnAction(new EventHandler<ActionEvent>() {
 						public void handle(ActionEvent event) {
 							int stars = (int) comboBox.getValue();
@@ -122,16 +132,20 @@ public class SingleRestaurant {
 							tempRestaurant.addReview(newReview);
 							txtReview.setText("");
 							lblMessage.setText("Review submitted!");
-							gridPane.add(lblMessage, 0, 3);
-							
+							tempVBox.getChildren().add(lblMessage);
+
 						}
 					});
-					
-				}
-				else if(new_toggle == menu) {
-					GridPane menuGridPane = new GridPane();
+
+				} else if (new_toggle == menu) {
+					gridPane.getChildren().remove(tempVBox);
+					gridPane.getChildren().remove(menuGridPane);
+					tempVBox.getChildren().clear();
+
 					Label menuLbl = new Label("Items");
 					Label quantLbl = new Label("Quantity");
+					menuLbl.getStyleClass().add("secondary-header");
+					quantLbl.getStyleClass().add("secondary-header");
 					int numItems = tempRestaurant.getNumItems();
 					int col = 0;
 					int row = 1;
@@ -149,7 +163,7 @@ public class SingleRestaurant {
 						VBox vBox = new VBox();
 						vBox.setPadding(new Insets(10, 10, 10, 10));
 						vBox.getChildren().addAll(nameTxt, descriptionTxt);
-						menuGridPane.add(vBox, col, row++);					
+						menuGridPane.add(vBox, col, row++);
 					}
 					menuGridPane.add(menuLbl, 0, 0);
 					menuGridPane.add(quantLbl, 1, 0);
