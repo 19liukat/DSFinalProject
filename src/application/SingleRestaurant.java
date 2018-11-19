@@ -23,6 +23,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -159,20 +160,25 @@ public class SingleRestaurant {
 					int numItems = tempRestaurant.getNumItems();
 					int col = 0;
 					int row = 1;
-					for (int i = 0; i < numItems; i++) {
+					ColumnConstraints ColCons = new ColumnConstraints();
+					ColCons.setMaxWidth(300.0);
+					menuGridPane.getColumnConstraints().add(0, ColCons);
+					for (int i=0; i<numItems; i++) {
 						Item currentItem = tempRestaurant.getItemList().get(i);
 						String itemName = currentItem.getName();
 						double itemPrice = currentItem.getPrice();
 						String itemDescription = currentItem.getDescription();
 						Text nameTxt = new Text(itemName + " " + itemPrice);
 						Text descriptionTxt = new Text(itemDescription);
+						descriptionTxt.setWrappingWidth(250.0);
 						VBox vBox = new VBox();
 						vBox.setPadding(new Insets(10, 10, 10, 10));
 						vBox.getChildren().addAll(nameTxt, descriptionTxt);
 						menuGridPane.add(vBox, col, row++);
 					}
 					menuGridPane.add(menuLbl, 0, 0);
-					menuGridPane.add(quantLbl, 2, 0);
+					menuGridPane.add(quantLbl, 1, 0);
+					gridPane.add(menuGridPane, 0, 2);
 				}
 
 			}
