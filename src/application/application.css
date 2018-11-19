@@ -1,5 +1,9 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
+.background-white{
+	-fx-background-color: white;
+}
+
 /*Buttons */
 .button-red { 
 	-fx-background-color: #A63446; 
@@ -13,4 +17,13 @@
 /*Text */
 .header-red{
 	-fx-text-fill: #A63446
+}
+.restaurant-title{
+	-fx-font-size: 18px;
+}
+.secondary-header{
+	-fx-font-size: 15px;
+}
+.restaurant-description{
+	-fx-font-size: 12px;
 }
