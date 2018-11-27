@@ -35,6 +35,11 @@ public class OrderPlaced {
 			}
 			Scene scene = new Scene(gp, 500, 500);
 			finalScene = scene;
+			
+			// Adding stylesheet
+			String css = this.getClass().getResource("application.css").toExternalForm();
+			scene.getStylesheets().add(css);
+			gp.getStyleClass().add("background-white");
 
 }
 }

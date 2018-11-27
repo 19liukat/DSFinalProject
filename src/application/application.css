@@ -16,7 +16,8 @@
 
 /*Text */
 .header-red{
-	-fx-text-fill: #A63446
+	-fx-fill: #A63446;
+	-fx-font-size: 15px;
 }
 .restaurant-title{
 	-fx-font-size: 18px;
@@ -30,5 +31,21 @@
 
 /*Toggle Group */
 .toggle-button:selected{
-	
+	-fx-background-color: #0C6291;
+	-fx-text-fill: #FBFEF9;
+}
+.toggle-button{
+	-fx-background-color: white;
+	-fx-border-color:#0C6291;
+	-fx-border-radius: 3 3 0 0;
+}
+
+/*ScrollPane */
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+/*Outline for node */
+.blue-border{
+	-fx-border-color: #0C6291;
 }

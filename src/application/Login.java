@@ -1,7 +1,6 @@
 package application;
 
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -12,6 +11,7 @@ import application.User.UserArrayList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -54,6 +55,7 @@ public class Login {
 		logo.setFitHeight(30);
 		logo.setFitWidth(50);
 		gridPane.add(logo, 1, 0);
+		GridPane.setHalignment(logo, HPos.CENTER);
 
 		// instantiate UserArrayList
 		UserArrayList userList = new UserArrayList();
@@ -65,8 +67,14 @@ public class Login {
 		Label lblPassword = new Label("Password:");
 		PasswordField pf = new PasswordField();
 		Button btnLogin = new Button("Login");
+		GridPane.setHalignment(btnLogin, HPos.RIGHT);
 		Label lblMessage = new Label();
-		Text text = new Text("RestaurantAdvisor");
+		Text restaurant = new Text("Restaurant");
+		restaurant.getStyleClass().add("secondary-header");
+		Text advisor = new Text("Advisor");
+ 		advisor.getStyleClass().add("header-red");
+		HBox hBoxText = new HBox(restaurant, advisor);
+		hBoxText.setAlignment(Pos.CENTER);
 		Hyperlink link = new Hyperlink();
 		link.setText("Don't have an account? Sign up");
 		link.setOnAction(new EventHandler<ActionEvent>() {
@@ -75,9 +83,15 @@ public class Login {
 				primaryStage.setScene(new CreateAccount(primaryStage).getScene());
 			}
 		});
+		
+		// allow button to grow:
+		btnLogin.setMaxWidth(Double.MAX_VALUE);
+		// ask GridPane to make button fill it's cells:
+		GridPane.setFillWidth(btnLogin, true);
 
 		// Adding Nodes to GridPane layout
-		gridPane.add(text, 1, 1);
+		gridPane.add(hBoxText, 1, 1);
+		GridPane.setHalignment(hBoxText, HPos.CENTER);
 		gridPane.add(lblUserName, 0, 2);
 		gridPane.add(txtUserName, 1, 2);
 		gridPane.add(lblPassword, 0, 3);

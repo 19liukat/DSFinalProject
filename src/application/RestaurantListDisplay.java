@@ -83,6 +83,8 @@ public class RestaurantListDisplay {
 		// Import stylesheet into the GUI String
 		String css = this.getClass().getResource("application.css").toExternalForm();
 		scene.getStylesheets().add(css);
+		sp.getStyleClass().add("background-white");
+		
 		finalScene = scene;
 	}
 

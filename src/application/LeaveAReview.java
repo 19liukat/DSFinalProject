@@ -84,6 +84,9 @@ public class LeaveAReview {
 		// padding
 		gridPane.setPadding(new Insets(10, 10, 10, 10));
 
+		String css = this.getClass().getResource("application.css").toExternalForm();
+		scene.getStylesheets().add(css);
+		gridPane.getStyleClass().add("background-white");
 	}
 
 }

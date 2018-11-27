@@ -70,8 +70,9 @@ public class SingleRestaurant {
 
 		// Placing toggle bar into separate HBox
 		HBox toggleBar = new HBox();
-		toggleBar.setPadding(new Insets(10, 10, 10, 0));
+		toggleBar.setPadding(new Insets(10, 10, 0, 0));
 		toggleBar.getChildren().addAll(readReviews, leaveReview, menu);
+		toggleBar.getStyleClass().add("blue-border");
 		gridPane.add(toggleBar, 0, 1);
 
 		// Prevents toggle buttons from being unselected
@@ -232,6 +233,7 @@ public class SingleRestaurant {
 		// Import stylesheet into the GUI String
 		String css = this.getClass().getResource("application.css").toExternalForm();
 		scene.getStylesheets().add(css);
+		sp.getStyleClass().add("background-white");
 
 		finalScene = scene;
 	}
