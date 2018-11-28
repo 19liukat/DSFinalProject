@@ -60,7 +60,12 @@ public class OrderPlaced {
 			BigDecimal totaldec=new BigDecimal(String.valueOf(total));
 			BigDecimal roundedTotalDec =  totaldec.setScale(2, RoundingMode.DOWN);
 			Text totalCost = new Text("Total: $" + roundedTotalDec);
-			Text time =  new Text("Your order will be ready in approximately " + totalItems*5 + " minutes");
+			int totalTime = 15;
+			totalTime+=totalItems*5;
+			if(totalTime>90) {
+				totalTime=90;
+			}
+			Text time =  new Text("Your order will be ready in approximately " + totalTime + " minutes");
 			gp.add(totalCost, 0, 2);
 			gp.add(time, 0, 3);
 			Button back = new Button("Back");
