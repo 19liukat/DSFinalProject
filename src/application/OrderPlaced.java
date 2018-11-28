@@ -61,11 +61,11 @@ public class OrderPlaced {
 			BigDecimal roundedTotalDec =  totaldec.setScale(2, RoundingMode.DOWN);
 			Text totalCost = new Text("Total: $" + roundedTotalDec);
 			Text time =  new Text("Your order will be ready in approximately " + totalItems*5 + " minutes");
-			gp.add(totalCost, 0, row++);
-			gp.add(time, 0, row++);
+			gp.add(totalCost, 0, 2);
+			gp.add(time, 0, 3);
 			Button back = new Button("Back");
 			back.getStyleClass().add("button-red");
-			gp.add(back, 0, row);
+			gp.add(back, 0, 4);
 			back.setOnMouseClicked(
 					event -> primaryStage.setScene(new SingleRestaurant(primaryStage, tempRestaurant, currentUser).getScene()));
 			Scene scene = new Scene(gp, 500, 500);
