@@ -10,7 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -41,18 +43,17 @@ public class SingleRestaurant {
 	public SingleRestaurant(Stage primaryStage, Restaurant tempRestaurant, User currentUser) {
 
 		GridPane gridPane = new GridPane();
-
+		
 		// Adding title of restaurant
 		Text restaurantName = new Text(tempRestaurant.getRestaurantName());
 		restaurantName.getStyleClass().add("restaurant-title");
 		gridPane.add(restaurantName, 0, 0);
 
 		// Back button 
-		VBox backVBox = new VBox();
 		Button back = new Button("Back");
 		back.getStyleClass().add("button-red");
-		backVBox.getChildren().add(back);
-		gridPane.add(backVBox, 1, 0);
+		gridPane.add(back, 0, 0);
+		GridPane.setHalignment(back, HPos.RIGHT);
 		back.setOnMouseClicked(
 				event -> primaryStage.setScene(RestaurantListDisplay.getScene()));
 		gridPane.getColumnConstraints().add(new ColumnConstraints(420));
@@ -72,7 +73,6 @@ public class SingleRestaurant {
 		HBox toggleBar = new HBox();
 		toggleBar.setPadding(new Insets(10, 10, 0, 0));
 		toggleBar.getChildren().addAll(readReviews, leaveReview, menu);
-		toggleBar.getStyleClass().add("blue-border");
 		gridPane.add(toggleBar, 0, 1);
 
 		// Prevents toggle buttons from being unselected
@@ -87,6 +87,8 @@ public class SingleRestaurant {
 		// menu.setUserData();
 		VBox tempVBox = new VBox(5);
 		GridPane menuGridPane = new GridPane();
+		tempVBox.getStyleClass().add("blue-border");
+		menuGridPane.getStyleClass().add("blue-border");
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
 				if (new_toggle == readReviews) {
@@ -98,6 +100,10 @@ public class SingleRestaurant {
 					title.getStyleClass().add("secondary-header");
 					tempVBox.getChildren().add(title);
 					int reviewListSize = tempRestaurant.getReviewList().size();
+					if(reviewListSize == 0){
+						Text noReviews = new Text("There are no reviews at this time. Be the first to leave one!");
+						tempVBox.getChildren().add(noReviews);
+					}
 					for (int i = 0; i < reviewListSize; i++) {
 						Review currentReview = tempRestaurant.getReviewList().get(i);
 						tempVBox.setPadding(new Insets(10, 10, 10, 10));

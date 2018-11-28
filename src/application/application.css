@@ -48,4 +48,5 @@
 /*Outline for node */
 .blue-border{
 	-fx-border-color: #0C6291;
+	-fx-padding: 7;
 }
