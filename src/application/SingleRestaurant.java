@@ -184,6 +184,7 @@ public class SingleRestaurant {
 						Text descriptionTxt = new Text(itemDescription);
 						descriptionTxt.setWrappingWidth(250.0);
 						TextField itemQuantity = new TextField();
+						itemQuantity.setText("0");
 						textFieldList.add(itemQuantity);
 
 						// Code from Internet
@@ -209,14 +210,13 @@ public class SingleRestaurant {
 					submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent e) {
-							for (int i = 0; i < quantities.size(); i++) {
-								if (textFieldList.get(i).getText().toString() == "") {
-									quantities.set(i, 0);
-								} else {
-									quantities.set(i, Integer.valueOf(textFieldList.get(i).getText().toString()));
-								}
+							int totalItems = 0;
+							for (int i = 0; i < textFieldList.size(); i++) {
+								String currTextField = textFieldList.get(i).getText().toString();
+								totalItems+=Integer.valueOf(currTextField);
+								quantities.add(Integer.valueOf(currTextField));
 							}
-							primaryStage.setScene(new OrderPlaced(primaryStage, quantities, tempRestaurant).getScene());
+							primaryStage.setScene(new OrderPlaced(primaryStage, quantities, tempRestaurant, currentUser, totalItems).getScene());
 						}
 					});
 					menuGridPane.add(menuLbl, 0, 0);
