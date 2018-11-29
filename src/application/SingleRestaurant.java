@@ -68,6 +68,7 @@ public class SingleRestaurant {
 		leaveReview.setToggleGroup(toggleGroup);
 		ToggleButton menu = new ToggleButton("Menu");
 		menu.setToggleGroup(toggleGroup);
+		toggleGroup.selectToggle(readReviews);
 
 		// Placing toggle bar into separate HBox
 		HBox toggleBar = new HBox();
