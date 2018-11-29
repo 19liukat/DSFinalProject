@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
+import application.Restaurants.Restaurant;
 import application.Review.Review;
 
 public class Wrapper {

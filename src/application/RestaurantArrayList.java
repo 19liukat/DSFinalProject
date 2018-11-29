@@ -1,6 +1,6 @@
 package application;
 import java.util.ArrayList;
-import application.Lists.ArrayIndexedList;
+import application.Restaurants.Restaurant;
 
 public class RestaurantArrayList {
 	private static ArrayList<Restaurant> restaurantList;

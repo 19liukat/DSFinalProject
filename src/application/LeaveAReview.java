@@ -1,7 +1,7 @@
 package application;
 
+import application.Restaurants.Restaurant;
 import application.Review.Review;
-import application.Review.ReviewArrayList;
 import application.User.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
