@@ -2,12 +2,20 @@ package application;
 
 import java.util.ArrayList;
 
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangerListener;
+
 import application.Restaurants.Restaurant;
 import application.User.User;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -17,6 +25,8 @@ import javafx.stage.Stage;
 public class RestaurantListDisplay {
 
 	private static Scene finalScene;
+	private ArrayList<Restaurant> rList;
+	private ArrayList<Restaurant> original;
 
 	public static Scene getScene() {
 		return finalScene;
@@ -26,18 +36,32 @@ public class RestaurantListDisplay {
 
 		// Adding GridPane
 		GridPane gridPane = new GridPane();
-		RestaurantArrayList restaurantList = new RestaurantArrayList();
+		RestaurantArrayList restaurantrList = new RestaurantArrayList();
 		gridPane.setPadding(new Insets(10, 10, 10, 10));
 
-		// Adding restaurants to list to display
-		ArrayList<Restaurant> rList = restaurantList.getList();
+		// Adding restaurants to rList to display
+		rList = restaurantrList.getList();
+		original = rList;
 
-		int row = 0;
+		int row = 2;
 		int col = 0;
 		int arraySize = rList.size();
+		Text title = new Text("Restaurants Near You");
+		gridPane.add(title, 0, 0);
+		gridPane.setHalignment(title, HPos.CENTER);
+		TextField txt = new TextField();
+        txt.setPromptText("Search");
+        txt.textProperty().addListener(
+            new ChangeListener() {
+                public void changed(ObservableValue observable, 
+                                    Object oldVal, Object newVal) {
+                    handleSearchByKey2((String)oldVal, (String)newVal);
+                }
+            });
+        
 		for (int i = 0; i < arraySize; i++) {
 
-			// Generate list of Restaurant objects and display it
+			// Generate rList of Restaurant objects and display it
 			final Restaurant tempRestaurant = rList.get(i);
 			Text name = new Text(tempRestaurant.getRestaurantName());
 			name.getStyleClass().add("restaurant-title");
@@ -61,6 +85,63 @@ public class RestaurantListDisplay {
 					.setScene((new SingleRestaurant(primaryStage, tempRestaurant, currentUser)).getScene()));
 
 		}
+		public void handleSearchByKey(String oldVal, String newVal) {
+	        // If the number of characters in the text box is less than last time
+	        // it must be because the user pressed delete
+	        if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
+	            // Restore the rLists original set of entries 
+	            // and start from the beginning
+	            rList.setItems( entries );
+	        }
+	         
+	        // Change to upper case so that case is not an issue
+	        newVal = newVal.toUpperCase();
+	 
+	        // Filter out the entries that don't contain the entered text
+	        ObservableList<String> subentries = FXCollections.observableArrayList();
+	        for ( Object entry: rList ) {
+	            String entryText = (String)entry;
+	            if ( entryText.toUpperCase().contains(newVal) ) {
+	                subentries.add(entryText);
+	            }
+	        }
+	        rList.setItems(subentries);
+	    }
+	 
+	    public void handleSearchByKey2(String oldVal, String newVal) {
+	        // If the number of characters in the text box is less than last time
+	        // it must be because the user pressed delete
+	        if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
+	            // Restore the rLists original set of entries 
+	            // and start from the beginning
+	            rList.setItems( entries );
+	        }
+	         
+	        // Break out all of the parts of the search text 
+	        // by splitting on white space
+	        String[] parts = newVal.toUpperCase().split(" ");
+	 
+	        // Filter out the entries that don't contain the entered text
+	        ObservableList<String> subentries = FXCollections.observableArrayList();
+	        for ( Object entry: rList) {
+	            boolean match = true;
+	            String entryText = (String)entry;
+	            for ( String part: parts ) {
+	                // The entry needs to contain all portions of the
+	                // search string *but* in any order
+	                if ( ! entryText.toUpperCase().contains(part) ) {
+	                    match = false;
+	                    break;
+	                }
+	            }
+	 
+	            if ( match ) {
+	                subentries.add(entryText);
+	            }
+	        }
+	        rList.setItems(subentries);
+	    }
+	}
 		// Logout button
 		VBox logoutVBox = new VBox();
 		logoutVBox.setPadding(new Insets(10, 10, 10, 10));
