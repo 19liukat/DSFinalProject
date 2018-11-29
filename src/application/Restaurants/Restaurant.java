@@ -99,7 +99,7 @@ public class Restaurant {
 	}
 
 	public int getNumItems() {
-		return numItems;
+		return itemList.size();
 	}
 
 	public void setNumItems(int numItems) {
