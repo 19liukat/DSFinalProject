@@ -19,19 +19,6 @@ public class Restaurant {
 	private ArrayList<Item> itemList;
 	private ArrayList<Review> reviewList;
 
-	public Restaurant() {
-		restaurantName = "FreshFin Poke";
-		restaurantType = "Fast Casual";
-		streetAddress = "240 North Lord Street";
-		city = "Brookfield";
-		state = "WI";
-		zipCode = 53045;
-		price = "$$";
-		itemList = new ArrayList<Item>();
-		reviewList = new ArrayList<Review>();
-		numItems = itemList.size();
-	}
-
 	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state,
 			int zipCode, String phone, String price) {
 		this.restaurantName = restaurantName;

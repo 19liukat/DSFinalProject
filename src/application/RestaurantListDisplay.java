@@ -27,22 +27,19 @@ public class RestaurantListDisplay {
 		// Adding GridPane
 		GridPane gridPane = new GridPane();
 		RestaurantArrayList restaurantList = new RestaurantArrayList();
-		Restaurant test = new Restaurant();
 		gridPane.setPadding(new Insets(10, 10, 10, 10));
 
 		// Adding restaurants to list to display
-		restaurantList.addRestaurant(test);
-		restaurantList.addRestaurant(test);
 		ArrayList<Restaurant> rList = restaurantList.getList();
 
-		int index = 0;
 		int row = 0;
 		int col = 0;
 		int arraySize = rList.size();
 		for (int i = 0; i < arraySize; i++) {
 
 			// Generate list of Restaurant objects and display it
-			final Restaurant tempRestaurant = rList.get(index);
+			final Restaurant tempRestaurant = rList.get(i);
+			System.out.println(tempRestaurant.getRestaurantName());
 			Text name = new Text(tempRestaurant.getRestaurantName());
 			name.getStyleClass().add("restaurant-title");
 			String type = tempRestaurant.getRestaurantType();
@@ -59,7 +56,6 @@ public class RestaurantListDisplay {
 			vBox.setPadding(new Insets(10, 10, 10, 10));
 			vBox.getChildren().addAll(name, textDescription);
 			gridPane.add(vBox, col, row++);
-			index++;
 
 			// Clicking a restaurant changes scene to individual restaurant page
 			vBox.setOnMouseClicked(event -> primaryStage

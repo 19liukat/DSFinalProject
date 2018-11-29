@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
-import application.Restaurant;
+import application.Item;
 
 public class Parser {
 // Parses through text files and creates new Restaurant objects
@@ -13,7 +13,7 @@ public class Parser {
 		
 	}
 	
-	public String rParse(String fileName){
+	public Restaurant rParse(String fileName){
 		try {
 			Scanner file = new Scanner(new FileReader("src/application/Restaurants/" + fileName));
 			String name = file.nextLine();
@@ -21,16 +21,21 @@ public class Parser {
 			String address = file.nextLine();
 			String city = file.nextLine();
 			String state = file.nextLine();
-			int zip = file.nextInt();
+			int zip = Integer.valueOf(file.nextLine());
 			String phone = file.nextLine();
 			String price = file.nextLine();
 			
-			String nextLine;
+			String nextLine = file.nextLine();
 			Restaurant temp = new Restaurant(name, type, address, city, state, zip, phone, price);
 			do{
+				String[] itemArray = nextLine.split(";");
+				System.out.println(itemArray[0]);
+				System.out.println(itemArray.length);
+				Item item = new Item(itemArray[0], itemArray[2], Double.valueOf(itemArray[1]));
+				temp.addItem(item);
 				nextLine = file.nextLine();
-				String[] item = nextLine.split(";");
-			}while(nextLine != "---");
+			}while(!nextLine.equals("---"));
+			
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
