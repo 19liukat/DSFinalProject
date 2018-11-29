@@ -29,8 +29,8 @@ public class Restaurant {
 		this.zipCode = zipCode;
 		this.price = price;
 		this.phone=phone;
-		this.itemList = new ArrayList<Item>();
-		this.reviewList = new ArrayList<Review>();
+		itemList = new ArrayList<Item>();
+		reviewList = new ArrayList<Review>();
 		numItems = itemList.size();
 	}
 

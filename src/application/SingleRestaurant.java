@@ -182,7 +182,7 @@ public class SingleRestaurant {
 						String itemName = currentItem.getName();
 						double itemPrice = currentItem.getPrice();
 						String itemDescription = currentItem.getDescription();
-						Text nameTxt = new Text(itemName + " " + itemPrice);
+						Text nameTxt = new Text(itemName + " $" + itemPrice);
 						Text descriptionTxt = new Text(itemDescription);
 						descriptionTxt.setWrappingWidth(250.0);
 						TextField itemQuantity = new TextField();
