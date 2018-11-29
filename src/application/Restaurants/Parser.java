@@ -29,13 +29,12 @@ public class Parser {
 			Restaurant temp = new Restaurant(name, type, address, city, state, zip, phone, price);
 			do{
 				String[] itemArray = nextLine.split(";");
-				System.out.println(itemArray[0]);
-				System.out.println(itemArray.length);
 				Item item = new Item(itemArray[0], itemArray[2], Double.valueOf(itemArray[1]));
 				temp.addItem(item);
 				nextLine = file.nextLine();
 			}while(!nextLine.equals("---"));
 			
+			return temp;
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

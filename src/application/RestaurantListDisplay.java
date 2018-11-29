@@ -39,7 +39,6 @@ public class RestaurantListDisplay {
 
 			// Generate list of Restaurant objects and display it
 			final Restaurant tempRestaurant = rList.get(i);
-			System.out.println(tempRestaurant.getRestaurantName());
 			Text name = new Text(tempRestaurant.getRestaurantName());
 			name.getStyleClass().add("restaurant-title");
 			String type = tempRestaurant.getRestaurantType();
