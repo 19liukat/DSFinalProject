@@ -1,10 +1,8 @@
-package application;
+package application.Restaurants;
 
 import java.util.ArrayList;
 
-import application.Lists.ArrayIndexedList;
-import application.Restaurants.Restaurant1ItemList;
-import application.Restaurants.Restaurant1ReviewList;
+import application.Item;
 import application.Review.Review;
 
 public class Restaurant {
@@ -14,6 +12,7 @@ public class Restaurant {
 	private String city;
 	private String state;
 	private int zipCode;
+	private String phone;
 	private String price;
 	private int numItems;
 	private double rating;
@@ -28,22 +27,23 @@ public class Restaurant {
 		state = "WI";
 		zipCode = 53045;
 		price = "$$";
-		itemList = (new Restaurant1ItemList()).getList();
+		itemList = new ArrayList<Item>();
 		reviewList = new ArrayList<Review>();
 		numItems = itemList.size();
 	}
 
 	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state,
 			int zipCode, String phone, String price) {
-		restaurantName = "FreshFin Poke";
-		restaurantType = "Fast Casual";
-		streetAddress = "240 North Lord Street";
-		city = "Brookfield";
-		state = "WI";
-		zipCode = 53045;
-		price = "$$";
-		itemList = (new Restaurant1ItemList()).getList();
-		rating = (new Restaurant1ReviewList()).getAvg();
+		this.restaurantName = restaurantName;
+		this.restaurantType = restaurantType;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.price = price;
+		this.phone=phone;
+		this.itemList = new ArrayList<Item>();
+		this.reviewList = new ArrayList<Review>();
 		numItems = itemList.size();
 	}
 

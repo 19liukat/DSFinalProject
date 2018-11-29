@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import application.Restaurants.Restaurant;
 import application.User.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
