@@ -1,5 +1,12 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 import application.Restaurants.Restaurant;
@@ -13,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -27,7 +33,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -155,6 +160,14 @@ public class SingleRestaurant {
 							txtReview.setText("");
 							lblMessage.setText("Review submitted!");
 							tempVBox.getChildren().add(lblMessage);
+							
+							try {
+					            Files.write(Paths.get("src/application/Restaurants/" + tempRestaurant.getFileName()), ("\n" + username + ";" + stars + ";" + review).getBytes(), StandardOpenOption.APPEND);
+
+							}catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					});
 

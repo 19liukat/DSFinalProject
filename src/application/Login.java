@@ -59,7 +59,6 @@ public class Login {
 
 		// instantiate UserArrayList
 		UserArrayList userList = new UserArrayList();
-		userList.addUser(new User("r", "p"));
 
 		// Implementing Nodes for GridPane
 		Label lblUserName = new Label("Username:");

@@ -1,5 +1,10 @@
 package application;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 import application.User.User;
 import application.User.UserArrayList;
 import javafx.event.ActionEvent;
@@ -47,7 +52,7 @@ public class CreateAccount {
 		Text restaurant = new Text("Restaurant");
 		restaurant.getStyleClass().add("secondary-header");
 		Text advisor = new Text("Advisor");
- 		advisor.getStyleClass().add("header-red");
+		advisor.getStyleClass().add("header-red");
 		HBox hBoxText = new HBox(restaurant, advisor);
 		hBoxText.setAlignment(Pos.CENTER);
 		btnCreateAccount.getStyleClass().add("button-blue");
@@ -55,17 +60,32 @@ public class CreateAccount {
 			public void handle(ActionEvent event) {
 				checkPw1 = pf.getText().toString();
 				checkPw2 = confPf.getText().toString();
-				if (checkPw1.equals(checkPw2)) {
-					User newUser = new User(txtUserName.getText().toString(), checkPw1);
-					userList.addUser(newUser);
-					primaryStage.setScene(new RestaurantListDisplay(primaryStage, newUser).getScene());
+
+				if (txtUserName.getText().equals("")) {
+					lblMessage.setText("Please enter a valid username");
+				} else if (pf.getText().equals("")) {
+					lblMessage.setText("Please enter a valid password");
 				} else {
-					lblMessage.setText("Passwords don't match");
-					lblMessage.setTextFill(Color.RED);
+					if (checkPw1.equals(checkPw2)) {
+						User newUser = new User(txtUserName.getText().toString(), checkPw1);
+						userList.addUser(newUser);
+						primaryStage.setScene(new RestaurantListDisplay(primaryStage, newUser).getScene());
+						// Appends new username and password to text file so you can log in later
+						try {
+				            Files.write(Paths.get("src/application/User/UserList"), ("\n" + newUser.getUsername() + ";" + newUser.getPassword()).getBytes(), StandardOpenOption.APPEND);
+
+						}catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else {
+						lblMessage.setText("Passwords don't match");
+						lblMessage.setTextFill(Color.RED);
+					}
+					txtUserName.setText("");
+					pf.setText("");
+					confPf.setText("");
 				}
-				txtUserName.setText("");
-				pf.setText("");
-				confPf.setText("");
 			}
 		});
 
@@ -79,6 +99,7 @@ public class CreateAccount {
 		gridPane.add(confPf, 1, 3);
 		gridPane.add(btnCreateAccount, 1, 4);
 		gridPane.add(lblMessage, 1, 5);
+		lblMessage.setTextFill(Color.RED);
 
 		// allow button to grow:
 		btnCreateAccount.setMaxWidth(Double.MAX_VALUE);

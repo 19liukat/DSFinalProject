@@ -18,9 +18,10 @@ public class Restaurant {
 	private double rating;
 	private ArrayList<Item> itemList;
 	private ArrayList<Review> reviewList;
+	private String fileName;
 
 	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state,
-			int zipCode, String phone, String price) {
+			int zipCode, String phone, String price, String fileName) {
 		this.restaurantName = restaurantName;
 		this.restaurantType = restaurantType;
 		this.streetAddress = streetAddress;
@@ -32,6 +33,7 @@ public class Restaurant {
 		itemList = new ArrayList<Item>();
 		reviewList = new ArrayList<Review>();
 		numItems = itemList.size();
+		this.fileName = fileName;
 	}
 
 	public void addReview(Review toAdd) {
@@ -133,6 +135,9 @@ public class Restaurant {
 
 	public ArrayList<Review> getReviewList() {
 		return reviewList;
+	}
+	public String getFileName(){
+		return fileName;
 	}
 
 }
