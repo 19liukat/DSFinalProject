@@ -34,7 +34,7 @@ public class Restaurant {
 	}
 
 	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state,
-			int zipCode, String price, int numItems) {
+			int zipCode, String phone, String price) {
 		restaurantName = "FreshFin Poke";
 		restaurantType = "Fast Casual";
 		streetAddress = "240 North Lord Street";

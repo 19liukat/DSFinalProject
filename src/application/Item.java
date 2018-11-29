@@ -3,19 +3,16 @@ package application;
 public class Item {
 	private String name;
 	private String description;
-	private String type;
 	private double price;
 	
 	public Item() {
 		name="";
 		description="";
-		type="";
 		price=0;
 	}
-	public Item(String name, String description, String type, double price) {
+	public Item(String name, String description, double price) {
 		this.name=name;
 		this.description=description;
-		this.type=type;
 		this.price=price;
 	}
 	public String getName() {
@@ -29,12 +26,6 @@ public class Item {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
 	}
 	public double getPrice() {
 		return price;
