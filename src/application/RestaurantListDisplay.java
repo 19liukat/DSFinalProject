@@ -1,5 +1,7 @@
 package application;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import application.Restaurants.Restaurant;
@@ -43,7 +45,7 @@ public class RestaurantListDisplay {
 			name.getStyleClass().add("restaurant-title");
 			String type = tempRestaurant.getRestaurantType();
 			String rating = String.valueOf(tempRestaurant.getRating());
-			String price = tempRestaurant.getPrice();
+			String price = String.valueOf(tempRestaurant.getPrice());
 			String address = tempRestaurant.getStreetAddress() + ", " + tempRestaurant.getCity() + ", "
 					+ tempRestaurant.getState();
 			String stringDescription = type + " | " + rating + " | " + price + " | " + address;

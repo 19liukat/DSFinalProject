@@ -193,9 +193,15 @@ public class SingleRestaurant {
 					for (int i = 0; i < numItems; i++) {
 						Item currentItem = tempRestaurant.getItemList().get(i);
 						String itemName = currentItem.getName();
-						double itemPrice = currentItem.getPrice();
+						double itemPrice = currentItem.getPrice();						
+						String price=String.valueOf(itemPrice);
+						//if the price does not have two decimals, add a "0"
+						int period = price.indexOf(".");
+						if (price.substring(period).length()==2) {
+							price=price+"0";
+						}
 						String itemDescription = currentItem.getDescription();
-						Text nameTxt = new Text(itemName + " $" + itemPrice);
+						Text nameTxt = new Text(itemName + " $" + price);
 						Text descriptionTxt = new Text(itemDescription);
 						descriptionTxt.setWrappingWidth(250.0);
 						TextField itemQuantity = new TextField();
