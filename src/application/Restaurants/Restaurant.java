@@ -1,5 +1,7 @@
 package application.Restaurants;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import application.Item;
@@ -118,7 +120,9 @@ public class Restaurant {
 			}
 			rating = sum / reviewList.size();
 		}
-		return rating;
+		BigDecimal origRating=new BigDecimal(String.valueOf(rating));
+		BigDecimal roundedRating =  origRating.setScale(1, RoundingMode.DOWN);
+		return Double.valueOf(String.valueOf(roundedRating));
 	}
 
 	public void setRating(double rating) {
