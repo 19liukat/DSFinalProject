@@ -12,6 +12,7 @@ public class Restaurant {
 	private String city;
 	private String state;
 	private int zipCode;
+	private String phone;
 	private String price;
 	private int numItems;
 	private double rating;
@@ -32,7 +33,7 @@ public class Restaurant {
 	}
 
 	public Restaurant(String restaurantName, String restaurantType, String streetAddress, String city, String state,
-			int zipCode, String price, int numItems) {
+			int zipCode, String phone, String price) {
 		this.restaurantName = restaurantName;
 		this.restaurantType = restaurantType;
 		this.streetAddress = streetAddress;
@@ -40,6 +41,7 @@ public class Restaurant {
 		this.state = state;
 		this.zipCode = zipCode;
 		this.price = price;
+		this.phone=phone;
 		this.itemList = new ArrayList<Item>();
 		this.reviewList = new ArrayList<Review>();
 		numItems = itemList.size();
