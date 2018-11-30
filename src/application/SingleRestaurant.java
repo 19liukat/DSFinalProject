@@ -1,13 +1,18 @@
 package application;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import application.Restaurants.Restaurant;
 import application.Review.Review;
@@ -16,6 +21,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -30,6 +36,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -49,37 +57,38 @@ public class SingleRestaurant {
 	public SingleRestaurant(Stage primaryStage, Restaurant tempRestaurant, User currentUser) {
 
 		GridPane gridPane = new GridPane();
-		
+
 		// Adding title of restaurant
 		Text restaurantName = new Text(tempRestaurant.getRestaurantName());
 		restaurantName.getStyleClass().add("restaurant-title");
 		gridPane.add(restaurantName, 0, 0);
 
-		// Back button 
+		// Back button
 		Button back = new Button("Back");
 		back.getStyleClass().add("button-red");
 		gridPane.add(back, 0, 0);
 		GridPane.setHalignment(back, HPos.RIGHT);
-		back.setOnMouseClicked(
-				event -> primaryStage.setScene(RestaurantListDisplay.getScene()));
+		back.setOnMouseClicked(event -> primaryStage.setScene(RestaurantListDisplay.getScene()));
 		gridPane.getColumnConstraints().add(new ColumnConstraints(420));
-		
+
 		// Adding Toggle Bar
 		ToggleGroup toggleGroup = new ToggleGroup();
 
+		ToggleButton info = new ToggleButton("About this Restaurant");
+		info.setToggleGroup(toggleGroup);
+		info.setSelected(true);
 		ToggleButton readReviews = new ToggleButton("Reviews");
 		readReviews.setToggleGroup(toggleGroup);
-		readReviews.setSelected(false);
 		ToggleButton leaveReview = new ToggleButton("Leave a Review");
 		leaveReview.setToggleGroup(toggleGroup);
 		ToggleButton menu = new ToggleButton("Menu");
 		menu.setToggleGroup(toggleGroup);
-		toggleGroup.selectToggle(readReviews);
+		toggleGroup.selectToggle(info);
 
 		// Placing toggle bar into separate HBox
 		HBox toggleBar = new HBox();
 		toggleBar.setPadding(new Insets(10, 10, 0, 0));
-		toggleBar.getChildren().addAll(readReviews, leaveReview, menu);
+		toggleBar.getChildren().addAll(info, readReviews, leaveReview, menu);
 		gridPane.add(toggleBar, 0, 1);
 
 		// Prevents toggle buttons from being unselected
@@ -89,25 +98,56 @@ public class SingleRestaurant {
 		});
 
 		// Adding functionality to each toggle button
-		// readReviews.setUserData();
-		// leaveReview.setUserData();
-		// menu.setUserData();
 		VBox tempVBox = new VBox(5);
 		GridPane menuGridPane = new GridPane();
+		GridPane infoGP = new GridPane();
 		tempVBox.getStyleClass().add("blue-border");
 		menuGridPane.getStyleClass().add("blue-border");
+		infoGP.getStyleClass().add("blue-border");
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
+				if (new_toggle == info) {
+					tempVBox.getChildren().clear();
+					gridPane.getChildren().remove(tempVBox);
+					gridPane.getChildren().remove(menuGridPane);
+					gridPane.getChildren().remove(infoGP);
+
+					// Formatting info GridPane
+					infoGP.setPadding(new Insets(10, 10, 10, 10));
+					
+					// Adding restaurant picture
+					ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+					String filePath = tempRestaurant.getFileName() + "Image.jpg";
+					InputStream input = classLoader.getResourceAsStream(filePath);
+					BufferedImage bufferedImage;
+					try {
+						bufferedImage = ImageIO.read(input);
+						Image logoImage = SwingFXUtils.toFXImage(bufferedImage, null);
+						ImageView image = new ImageView(logoImage);
+						image.setFitWidth(250);
+						image.setPreserveRatio(true);
+						infoGP.add(image, 0, 1);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Text title = new Text("About This Restaurant");
+					
+					
+					
+					gridPane.add(infoGP, 0, 2);
+				}
 				if (new_toggle == readReviews) {
 					tempVBox.getChildren().clear();
 					gridPane.getChildren().remove(tempVBox);
 					gridPane.getChildren().remove(menuGridPane);
+					gridPane.getChildren().remove(infoGP);
 
 					Text title = new Text("Customer Reviews");
 					title.getStyleClass().add("secondary-header");
 					tempVBox.getChildren().add(title);
 					int reviewListSize = tempRestaurant.getReviewList().size();
-					if(reviewListSize == 0){
+					if (reviewListSize == 0) {
 						Text noReviews = new Text("There are no reviews at this time. Be the first to leave one!");
 						tempVBox.getChildren().add(noReviews);
 					}
@@ -126,6 +166,7 @@ public class SingleRestaurant {
 					gridPane.getChildren().remove(tempVBox);
 					gridPane.getChildren().remove(menuGridPane);
 					tempVBox.getChildren().clear();
+					gridPane.getChildren().remove(infoGP);
 
 					tempVBox.setSpacing(10);
 					Text text = new Text("Leave a Review");
@@ -160,11 +201,12 @@ public class SingleRestaurant {
 							txtReview.setText("");
 							lblMessage.setText("Review submitted!");
 							tempVBox.getChildren().add(lblMessage);
-							
-							try {
-					            Files.write(Paths.get("src/application/Restaurants/" + tempRestaurant.getFileName()), ("\n" + username + ";" + stars + ";" + review).getBytes(), StandardOpenOption.APPEND);
 
-							}catch (IOException e) {
+							try {
+								Files.write(Paths.get("src/application/Restaurants/" + tempRestaurant.getFileName()),
+										("\n" + username + ";" + stars + ";" + review).getBytes(),
+										StandardOpenOption.APPEND);
+							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
@@ -175,6 +217,7 @@ public class SingleRestaurant {
 					gridPane.getChildren().remove(tempVBox);
 					gridPane.getChildren().remove(menuGridPane);
 					tempVBox.getChildren().clear();
+					gridPane.getChildren().remove(infoGP);
 
 					Label menuLbl = new Label("Items");
 					Label quantLbl = new Label("Quantity");
@@ -228,10 +271,12 @@ public class SingleRestaurant {
 							int totalItems = 0;
 							for (int i = 0; i < textFieldList.size(); i++) {
 								String currTextField = textFieldList.get(i).getText().toString();
-								totalItems+=Integer.valueOf(currTextField);
+								totalItems += Integer.valueOf(currTextField);
 								quantities.add(Integer.valueOf(currTextField));
 							}
-							primaryStage.setScene(new OrderPlaced(primaryStage, quantities, tempRestaurant, currentUser, totalItems).getScene());
+							primaryStage.setScene(
+									new OrderPlaced(primaryStage, quantities, tempRestaurant, currentUser, totalItems)
+											.getScene());
 						}
 					});
 					menuGridPane.add(menuLbl, 0, 0);
@@ -244,7 +289,7 @@ public class SingleRestaurant {
 		});
 
 		// Adjusting GridPane padding
-		gridPane.setPadding(new Insets(10, 10, 10, 10));
+		gridPane.setPadding(new Insets(10, 0, 10, 10));
 
 		// Adding GridPane to ScrollPane and setting scene
 		ScrollPane sp = new ScrollPane();
