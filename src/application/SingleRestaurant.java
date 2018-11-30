@@ -42,6 +42,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -76,7 +77,6 @@ public class SingleRestaurant {
 
 		ToggleButton info = new ToggleButton("About this Restaurant");
 		info.setToggleGroup(toggleGroup);
-		info.setSelected(true);
 		ToggleButton readReviews = new ToggleButton("Reviews");
 		readReviews.setToggleGroup(toggleGroup);
 		ToggleButton leaveReview = new ToggleButton("Leave a Review");
@@ -104,6 +104,31 @@ public class SingleRestaurant {
 		tempVBox.getStyleClass().add("blue-border");
 		menuGridPane.getStyleClass().add("blue-border");
 		infoGP.getStyleClass().add("blue-border");
+		
+		// Automatically set to Info tab
+		infoGP.setPadding(new Insets(10, 10, 10, 10));
+		info.setSelected(true);
+
+		// Adding restaurant picture
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		String filePath = tempRestaurant.getFileName() + "Image.jpg";
+		InputStream input = classLoader.getResourceAsStream(filePath);
+		BufferedImage bufferedImage;
+		try {
+			bufferedImage = ImageIO.read(input);
+			Image logoImage = SwingFXUtils.toFXImage(bufferedImage, null);
+			ImageView image = new ImageView(logoImage);
+			image.setFitWidth(250);
+			image.setPreserveRatio(true);
+			infoGP.add(image, 0, 1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Text aboutRestaurant = new Text("About This Restaurant");
+		gridPane.add(infoGP, 0, 2);
+		
+		// Creating ToggleGroup to switch between tabs
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
 				if (new_toggle == info) {
@@ -131,9 +156,7 @@ public class SingleRestaurant {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Text title = new Text("About This Restaurant");
-					
-					
+					Text restaurantName = new Text("About This Restaurant");
 					
 					gridPane.add(infoGP, 0, 2);
 				}
@@ -193,13 +216,20 @@ public class SingleRestaurant {
 					// adds it to reviewList
 					submit.setOnAction(new EventHandler<ActionEvent>() {
 						public void handle(ActionEvent event) {
-							int stars = (int) comboBox.getValue();
 							String review = txtReview.getText().toString();
 							String username = currentUser.getUsername();
-							Review newReview = new Review(stars, review, username);
-							tempRestaurant.addReview(newReview);
-							txtReview.setText("");
-							lblMessage.setText("Review submitted!");
+							if(review.equals("")||comboBox.getValue().equals("Not selected")) {
+								lblMessage.setText("Please enter valid review");
+								lblMessage.setTextFill(Color.RED);
+
+							}
+							else {
+								int stars = Integer.valueOf((String)comboBox.getValue());
+								Review newReview = new Review(stars, review, username);
+								tempRestaurant.addReview(newReview);
+								txtReview.setText("");
+								lblMessage.setText("Review submitted!");
+							}
 							tempVBox.getChildren().add(lblMessage);
 
 							try {
@@ -257,7 +287,7 @@ public class SingleRestaurant {
 						});
 
 						VBox vBox = new VBox();
-						vBox.setPadding(new Insets(10, 10, 10, 10));
+						vBox.setPadding(new Insets(10, 10, 10, 0));
 						vBox.getChildren().addAll(nameTxt, descriptionTxt);
 						menuGridPane.add(vBox, col, row);
 
@@ -265,6 +295,7 @@ public class SingleRestaurant {
 					}
 
 					Button submitBtn = new Button("Place your order");
+					submitBtn.getStyleClass().add("button-blue");
 					submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent e) {
