@@ -221,7 +221,6 @@ public class SingleRestaurant {
 							if(review.equals("")||comboBox.getValue().equals("Not selected")) {
 								lblMessage.setText("Please enter valid review");
 								lblMessage.setTextFill(Color.RED);
-
 							}
 							else {
 								int stars = Integer.valueOf((String)comboBox.getValue());
@@ -229,17 +228,16 @@ public class SingleRestaurant {
 								tempRestaurant.addReview(newReview);
 								txtReview.setText("");
 								lblMessage.setText("Review submitted!");
+								try {
+									Files.write(Paths.get("src/application/Restaurants/" + tempRestaurant.getFileName()),
+											("\n" + username + ";" + stars + ";" + review).getBytes(),
+											StandardOpenOption.APPEND);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
 							tempVBox.getChildren().add(lblMessage);
-
-							try {
-								Files.write(Paths.get("src/application/Restaurants/" + tempRestaurant.getFileName()),
-										("\n" + username + ";" + stars + ";" + review).getBytes(),
-										StandardOpenOption.APPEND);
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
 						}
 					});
 
