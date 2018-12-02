@@ -200,8 +200,9 @@ public class SingleRestaurant {
 
 					// Drop down of star options
 					HBox stars = new HBox();
-					ObservableList<Integer> options = FXCollections.observableArrayList(1, 2, 3, 4, 5);
+					ObservableList<String> options = FXCollections.observableArrayList("Not Selected","1", "2", "3", "4", "5");
 					final ComboBox comboBox = new ComboBox(options);
+					comboBox.getSelectionModel().selectFirst();
 					stars.getChildren().setAll(lblStars, comboBox);
 					Label lblMessage = new Label();
 
@@ -218,7 +219,7 @@ public class SingleRestaurant {
 						public void handle(ActionEvent event) {
 							String review = txtReview.getText().toString();
 							String username = currentUser.getUsername();
-							if(review.equals("")||comboBox.getValue().equals("Not selected")) {
+							if(review.equals("")||comboBox.getValue().equals("Not Selected")) {
 								lblMessage.setText("Please enter valid review");
 								lblMessage.setTextFill(Color.RED);
 							}

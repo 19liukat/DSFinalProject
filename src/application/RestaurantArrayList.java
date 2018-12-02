@@ -15,6 +15,9 @@ public class RestaurantArrayList {
 		restaurantList.add(p.rParse("Restaurant2"));
 		restaurantList.add(p.rParse("Restaurant3"));
 		restaurantList.add(p.rParse("Restaurant4"));
+		restaurantList.add(p.rParse("Restaurant5"));
+		restaurantList.add(p.rParse("Restaurant6"));
+		restaurantList.add(p.rParse("Restaurant7"));
 	}
 
 	public void addRestaurant(Restaurant toAdd) {
