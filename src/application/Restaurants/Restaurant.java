@@ -43,6 +43,10 @@ public class Restaurant {
 	public void addItem(Item toAdd) {
 		itemList.add(toAdd);
 	}
+	
+	public String getPhone(){
+		return phone;
+	}
 
 	public String getRestaurantName() {
 		return restaurantName;

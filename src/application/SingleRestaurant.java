@@ -26,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -70,7 +71,6 @@ public class SingleRestaurant {
 		gridPane.add(back, 0, 0);
 		GridPane.setHalignment(back, HPos.RIGHT);
 		back.setOnMouseClicked(event -> primaryStage.setScene(RestaurantListDisplay.getScene()));
-		gridPane.getColumnConstraints().add(new ColumnConstraints(420));
 
 		// Adding Toggle Bar
 		ToggleGroup toggleGroup = new ToggleGroup();
@@ -99,12 +99,15 @@ public class SingleRestaurant {
 
 		// Adding functionality to each toggle button
 		VBox tempVBox = new VBox(5);
+		tempVBox.setPrefWidth(460);
 		GridPane menuGridPane = new GridPane();
+		menuGridPane.setPrefWidth(460);
 		GridPane infoGP = new GridPane();
 		tempVBox.getStyleClass().add("blue-border");
 		menuGridPane.getStyleClass().add("blue-border");
 		infoGP.getStyleClass().add("blue-border");
-		
+		infoGP.setPrefWidth(460);
+
 		// Automatically set to Info tab
 		infoGP.setPadding(new Insets(10, 10, 10, 10));
 		info.setSelected(true);
@@ -118,16 +121,28 @@ public class SingleRestaurant {
 			bufferedImage = ImageIO.read(input);
 			Image logoImage = SwingFXUtils.toFXImage(bufferedImage, null);
 			ImageView image = new ImageView(logoImage);
-			image.setFitWidth(250);
+			image.setFitWidth(440);
 			image.setPreserveRatio(true);
-			infoGP.add(image, 0, 1);
+			infoGP.add(image, 0, 0);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Text aboutRestaurant = new Text("About This Restaurant");
+		aboutRestaurant.getStyleClass().add("restaurant-title");
+		Text name = new Text(tempRestaurant.getRestaurantName());
+		Text phone = new Text(tempRestaurant.getPhone());
+		Text address = new Text(tempRestaurant.getStreetAddress());
+		Text restAddress = new Text(tempRestaurant.getCity() + " " + tempRestaurant.getState() + " "
+				+ String.valueOf(tempRestaurant.getZipCode()));
+		Text restaurantType = new Text(tempRestaurant.getRestaurantType());
+		infoGP.add(aboutRestaurant, 0, 1);
+		infoGP.add(name, 0, 2);
+		infoGP.add(phone, 0, 3);
+		infoGP.add(address, 0, 4);
+		infoGP.add(restAddress, 0, 5);
 		gridPane.add(infoGP, 0, 2);
-		
+
 		// Creating ToggleGroup to switch between tabs
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) {
@@ -139,7 +154,7 @@ public class SingleRestaurant {
 
 					// Formatting info GridPane
 					infoGP.setPadding(new Insets(10, 10, 10, 10));
-					
+
 					// Adding restaurant picture
 					ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 					String filePath = tempRestaurant.getFileName() + "Image.jpg";
@@ -149,15 +164,30 @@ public class SingleRestaurant {
 						bufferedImage = ImageIO.read(input);
 						Image logoImage = SwingFXUtils.toFXImage(bufferedImage, null);
 						ImageView image = new ImageView(logoImage);
-						image.setFitWidth(250);
 						image.setPreserveRatio(true);
-						infoGP.add(image, 0, 1);
+						infoGP.add(image, 0, 0);
+						image.setFitWidth(440);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Text restaurantName = new Text("About This Restaurant");
-					
+
+					Text aboutRestaurant = new Text("About This Restaurant");
+					aboutRestaurant.getStyleClass().add("restaurant-title");
+					Text restaurantName = new Text(tempRestaurant.getRestaurantName());
+					Text phone = new Text(tempRestaurant.getPhone());
+					Text address = new Text(tempRestaurant.getStreetAddress());
+					Text restAddress = new Text(tempRestaurant.getCity() + " " + tempRestaurant.getState() + " "
+							+ String.valueOf(tempRestaurant.getZipCode()));
+					Text restaurantType = new Text(tempRestaurant.getRestaurantType());
+
+					tempVBox.getChildren().addAll(aboutRestaurant, restaurantName, phone, address, restAddress);
+
+					infoGP.add(aboutRestaurant, 0, 1);
+					infoGP.add(restaurantName, 0, 2);
+					infoGP.add(phone, 0, 3);
+					infoGP.add(address, 0, 4);
+					infoGP.add(restAddress, 0, 5);
 					gridPane.add(infoGP, 0, 2);
 				}
 				if (new_toggle == readReviews) {
@@ -200,13 +230,16 @@ public class SingleRestaurant {
 
 					// Drop down of star options
 					HBox stars = new HBox();
-					ObservableList<Integer> options = FXCollections.observableArrayList(1, 2, 3, 4, 5);
+					ObservableList<String> options = FXCollections.observableArrayList("Not Selected", "1", "2", "3",
+							"4", "5");
 					final ComboBox comboBox = new ComboBox(options);
+					comboBox.getSelectionModel().selectFirst();
 					stars.getChildren().setAll(lblStars, comboBox);
 					Label lblMessage = new Label();
 
 					// Submit review button
 					Button submit = new Button("Submit");
+					submit.getStyleClass().add("button-blue");
 
 					// Adding nodes to VBox and GridPane
 					tempVBox.getChildren().addAll(text, txtReview, stars, submit);
@@ -218,18 +251,18 @@ public class SingleRestaurant {
 						public void handle(ActionEvent event) {
 							String review = txtReview.getText().toString();
 							String username = currentUser.getUsername();
-							if(review.equals("")||comboBox.getValue().equals("Not selected")) {
+							if (review.equals("") || comboBox.getValue().equals("Not Selected")) {
 								lblMessage.setText("Please enter valid review");
 								lblMessage.setTextFill(Color.RED);
-							}
-							else {
-								int stars = Integer.valueOf((String)comboBox.getValue());
+							} else {
+								int stars = Integer.valueOf((String) comboBox.getValue());
 								Review newReview = new Review(stars, review, username);
 								tempRestaurant.addReview(newReview);
 								txtReview.setText("");
 								lblMessage.setText("Review submitted!");
 								try {
-									Files.write(Paths.get("src/application/Restaurants/" + tempRestaurant.getFileName()),
+									Files.write(
+											Paths.get("src/application/Restaurants/" + tempRestaurant.getFileName()),
 											("\n" + username + ";" + stars + ";" + review).getBytes(),
 											StandardOpenOption.APPEND);
 								} catch (IOException e) {
@@ -254,9 +287,6 @@ public class SingleRestaurant {
 					int numItems = tempRestaurant.getNumItems();
 					int col = 0;
 					int row = 1;
-					ColumnConstraints ColCons = new ColumnConstraints();
-					ColCons.setMaxWidth(300.0);
-					menuGridPane.getColumnConstraints().add(0, ColCons);
 
 					// Adding textfields for placing an order
 					ArrayList<Integer> quantities = new ArrayList<Integer>();

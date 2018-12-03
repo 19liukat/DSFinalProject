@@ -43,6 +43,9 @@ public class RestaurantListDisplay {
 			name.getStyleClass().add("restaurant-title");
 			String type = tempRestaurant.getRestaurantType();
 			String rating = String.valueOf(tempRestaurant.getRating());
+			if(Double.valueOf(rating) == 0.0){
+				rating = "No Reviews";
+			}
 			String price = tempRestaurant.getPrice();
 			String address = tempRestaurant.getStreetAddress() + ", " + tempRestaurant.getCity() + ", "
 					+ tempRestaurant.getState();
