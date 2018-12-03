@@ -27,6 +27,9 @@ public class OrderPlaced {
 
 	public OrderPlaced(Stage primaryStage, ArrayList<Integer> quantities, Restaurant tempRestaurant, User currentUser, int totalItems) {
 			GridPane gp = new GridPane();
+			gp.setPadding(new Insets(10, 10, 10, 10));
+			gp.setVgap(10);
+
 			int numItems = quantities.size();
 			Text yourOrder = new Text("Thank you for your order, " + currentUser.getUsername());
 			gp.add(yourOrder, 0, 0);
@@ -69,8 +72,8 @@ public class OrderPlaced {
 			Text time =  new Text("Your order will be ready in approximately " + totalTime + " minutes");
 			gp.add(totalCost, 0, 2);
 			gp.add(time, 0, 3);
-			Button back = new Button("Back");
-			back.getStyleClass().add("button-red");
+			Button back = new Button("Home");
+			back.getStyleClass().add("button-blue");
 			gp.add(back, 0, 4);
 			back.setOnMouseClicked(
 					event -> primaryStage.setScene(new SingleRestaurant(primaryStage, tempRestaurant, currentUser).getScene()));
