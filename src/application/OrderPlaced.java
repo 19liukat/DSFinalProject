@@ -49,6 +49,7 @@ public class OrderPlaced {
 					
 					Text number = new Text(String.valueOf(quantity));
 					Text item = new Text(tempRestaurant.getItemList().get(i).getName());
+					item.setWrappingWidth(150);
 					double price = quantity*tempRestaurant.getItemList().get(i).getPrice();
 					BigDecimal itemPrice = new BigDecimal(String.valueOf(price));
 					BigDecimal roundedItemPrice = itemPrice.setScale(2, RoundingMode.DOWN);
